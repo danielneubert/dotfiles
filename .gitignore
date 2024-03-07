@@ -1,3 +1,7 @@
+# Resources
+**/.DS_Store
+!**/**/.gitkeep
+
 # Fish
 .config/fish/completions
 .config/fish/conf.d
