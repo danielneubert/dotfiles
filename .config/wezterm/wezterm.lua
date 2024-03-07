@@ -24,7 +24,7 @@ config.color_scheme = 'Catppuccin Macchiato'
 
 -- Make the window perfect
 config.enable_tab_bar = false
-config.window_decorations = 'RESIZE'
+config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
 config.exit_behavior = 'CloseOnCleanExit'
 config.window_padding = {
   left = 0,

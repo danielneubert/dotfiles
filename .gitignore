@@ -1,6 +1,9 @@
 # Neovim
 .config/nvim/lazy-lock.json
 
+# Karabiner Elements
+.config/karabiner/automatic_backups
+
 # Zed Editor
 .config/zed/*
 !.config/zed/settings.json
