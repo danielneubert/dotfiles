@@ -1,8 +1,18 @@
-# Neovim
-.config/nvim/lazy-lock.json
+# Fish
+.config/fish/completions
+.config/fish/conf.d
+.config/fish/functions
+.config/fish/configs/user.fish
+.config/fish/fish_variables
 
 # Karabiner Elements
 .config/karabiner/automatic_backups
+
+# Neovim
+.config/nvim/lazy-lock.json
+
+# Tmux
+.config/tmux/plugins
 
 # Zed Editor
 .config/zed/*
