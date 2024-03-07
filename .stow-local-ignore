@@ -1,0 +1,6 @@
+\.git
+\.gitignore
+\.stow-local-ignore
+\.stylua.toml
+^/LICENCE
+^/README.md
