@@ -1,0 +1,22 @@
+add_newline = true
+
+format = """\
+  $directory\
+  $git_branch\
+  $line_break\
+  $character\
+  """
+
+[character]
+success_symbol = "[❱](bold green)"
+vimcmd_symbol = "[❱](bold green)"
+vimcmd_visual_symbol = "[❱](bold green)"
+error_symbol = "[❱](bold red)"
+
+[directory]
+truncation_length = 6
+truncate_to_repo = true
+disabled = false
+
+[line_break]
+disabled = false

@@ -1,0 +1,9 @@
+# PHP artisan
+alias artisan='php artisan'
+
+# Cryptomator
+alias ..work='cd ~/Library/Application\ Support/Cryptomator/mnt'
+
+# Edit your evil master project
+alias ..evil = 'cd ~/Projects/Evil && vim && cd ~'
+
