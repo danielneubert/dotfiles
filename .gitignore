@@ -1,3 +1,6 @@
+# Neovim
+.config/nvim/lazy-lock.json
+
 # Zed Editor
 .config/zed/*
 !.config/zed/settings.json
