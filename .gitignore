@@ -1,0 +1,6 @@
+# Zed Editor
+.config/zed/*
+!.config/zed/settings.json
+!.config/zed/themes
+.config/zed/themes/*
+!.config/zed/themes/catppuccin.json
