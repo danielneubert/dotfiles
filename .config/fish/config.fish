@@ -8,7 +8,7 @@ function l --on-variable PWD
     la
 end
 
-set -U fish_user_paths /usr/local/bin /opt/homebrew/sbin /opt/homebrew/bin $HOME/.composer/vendor/bin $HOME/.cargo/bin $fisher_user_paths
+set -U fish_user_paths /usr/local/bin /opt/homebrew/sbin /opt/homebrew/bin $HOME/.composer/vendor/bin $fisher_user_paths
 
 # Make the .config accessible everywhere
 alias ..c='cd ~/.dotfiles/.config && vim'
@@ -32,4 +32,3 @@ set fish_greeting
 
 # Set the shell prompt
 starship init fish | source
-zoxide init fish | source
