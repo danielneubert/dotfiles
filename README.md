@@ -29,8 +29,11 @@ To Setup:
 
 ![](assets/capslock-keyboard.gif)
 
-## Installer
+## Software
 
 ### Logi Options+
 
-Due to the fear of Logitech removing full support of the offline version of Logi Options+ (required for their ergo-mice) I saved the most recent available version of it to this repo. (offline version beeing 1.64 while the online version is already at 1.66 [2024-03-14])
+Since my concerns about the imminent removal of the installer have been disproved, I have also found official release notes and download page for the offline installer. Since the offline version is not listed on homebrew, the download via the website is probably the only option for the time being.
+
+- [Download Page Logi Options+ (Offline)](https://support.logi.com/hc/en-us/articles/11570501236119-Logitech-Options-offline-installer)
+- [Release-Notes Logi Options+ (Offline)](https://support.logi.com/hc/en-us/articles/17032567939351-Logi-Options-Offline-Installer-Release-Notes)
