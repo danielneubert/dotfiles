@@ -29,6 +29,7 @@ vim.keymap.set({ 'n', 'v' }, '<C-g>', 'ggVG', { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>sv', '<C-w>v', { desc = '[S]plit [V]ertical (right)' }) -- split vertical
 vim.keymap.set('n', '<leader>sc', '<C-w>s', { desc = '[S]plit Horizontal (below)' }) -- split vertical
+vim.keymap.set('n', '<leader>se', '<C-w>=', { desc = '[S]plit [E]qual Width' }) -- split vertical
 vim.keymap.set('n', '<leader>sw', '<cmd>close<cr>', { desc = 'Close [S]plit' }) -- close active split
 vim.keymap.set('n', '<leader>sh', '<C-w>h', { desc = 'Go left [S]plit' }) -- move cursor next split
 vim.keymap.set('n', '<leader>sj', '<C-w>j', { desc = 'Go lower [S]plit' }) -- move cursor next split

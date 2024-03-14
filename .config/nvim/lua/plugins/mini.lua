@@ -1,5 +1,8 @@
 return {
   {
+    'nvim-tree/nvim-web-devicons',
+  },
+  {
     'echasnovski/mini.nvim',
     config = function()
       require('mini.ai').setup { n_lines = 500 }
@@ -31,7 +34,7 @@ return {
 
       local tabline = require 'mini.tabline'
       tabline.setup {
-        show_icons = false,
+        show_icons = true,
       }
     end,
   },

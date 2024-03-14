@@ -54,7 +54,16 @@ return {
           },
         },
         icons = {
-          webdev_colors = false,
+          web_devicons = {
+            file = {
+              enable = true,
+              color = false,
+            },
+            folder = {
+              enable = false,
+              color = false,
+            },
+          },
           git_placement = 'after',
           modified_placement = 'after',
           padding = ' ',
@@ -67,19 +76,19 @@ return {
             modified = true,
           },
           glyphs = {
-            default = '◆',
-            symlink = '->',
+            default = '',
+            symlink = ' ⇒ ',
             bookmark = '',
             modified = '*',
             folder = {
               arrow_closed = '',
               arrow_open = '',
-              default = '∕',
-              open = '∕',
-              empty = '∕',
-              empty_open = '∕',
-              symlink = '∕',
-              symlink_open = '∕',
+              default = '',
+              open = '',
+              empty = '',
+              empty_open = '',
+              symlink = '',
+              symlink_open = '',
             },
             git = {
               -- Matches Tower client
@@ -98,6 +107,13 @@ return {
       },
       diagnostics = {
         enable = false,
+      },
+      filters = {
+        custom = {
+          '^\\.git',
+          '^\\node_modules',
+          '^\\.DS_Store',
+        },
       },
       filesystem_watchers = {
         enable = true,

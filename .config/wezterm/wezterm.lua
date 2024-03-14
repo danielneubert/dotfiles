@@ -46,7 +46,7 @@ config.freetype_load_target = 'Normal'
 
 config.font_size = 18
 config.line_height = 1
-config.font = wezterm.font('JetBrains Mono', { weight = 450, stretch = 'Normal', style = 'Normal' })
+config.font = wezterm.font('JetBrainsMono Nerd Font', { weight = 400, stretch = 'Normal', style = 'Normal' })
 
 -- say that this macOS app works as a macOS app ...
 config.native_macos_fullscreen_mode = true

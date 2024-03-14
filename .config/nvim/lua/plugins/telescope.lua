@@ -20,6 +20,7 @@ return {
           layout_strategy = 'horizontal',
           layout_config = { prompt_position = 'top' },
           sorting_strategy = 'ascending',
+          color_devicons = false,
           winblend = 0,
           mappings = {
             i = {
