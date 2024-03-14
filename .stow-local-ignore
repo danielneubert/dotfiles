@@ -2,6 +2,7 @@
 \.gitignore
 \.stow-local-ignore
 \.stylua.toml
+/assets
 \.DS_Store
 ^/makefile
 ^/LICENCE
