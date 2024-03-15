@@ -24,7 +24,7 @@ vim.opt.titlestring = "vim %{substitute(getcwd(), $HOME, '~', '')}"
 
 -- Numbers
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Indentation
 vim.opt.tabstop = 4

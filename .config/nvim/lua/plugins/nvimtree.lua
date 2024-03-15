@@ -111,7 +111,7 @@ return {
       filters = {
         custom = {
           '^\\.git',
-          '^\\node_modules',
+          'node_modules',
           '^\\.DS_Store',
         },
       },

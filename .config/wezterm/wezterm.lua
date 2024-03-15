@@ -16,11 +16,11 @@ config.colors = {
   -- cursor_bg = "#eb6f92",
   cursor_border = '#eb6f92',
 }
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.96
 config.macos_window_background_blur = 48
 
 -- Color scheme based on macOS appearance
-config.color_scheme = 'Catppuccin Macchiato'
+config.color_scheme = 'rose-pine'
 
 -- Make the window perfect
 config.enable_tab_bar = false
@@ -46,7 +46,7 @@ config.freetype_load_target = 'Normal'
 
 config.font_size = 18
 config.line_height = 1
-config.font = wezterm.font('JetBrainsMono Nerd Font', { weight = 400, stretch = 'Normal', style = 'Normal' })
+config.font = wezterm.font('Fira Code', { weight = 450, stretch = 'Normal', style = 'Normal' })
 
 -- say that this macOS app works as a macOS app ...
 config.native_macos_fullscreen_mode = true
