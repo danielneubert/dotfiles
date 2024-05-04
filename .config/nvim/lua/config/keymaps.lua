@@ -22,7 +22,8 @@ vim.keymap.set({ 'n', 'v' }, '<C-s>', function()
   vim.cmd 'w!'
 end)
 
-vim.keymap.set('n', '<leader>fe', '<cmd>NvimTreeToggle<cr>', { desc = '[F]ind in [E]xplorer' }) -- open the nvim tree (mapped in iTerm to CMD-E)
+vim.keymap.set('n', '<leader>fe', '<cmd>NvimTreeToggle<cr>', { desc = '[F]ind in [E]xplorer' })
+vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind with [T]odos' })
 vim.keymap.set('n', '<C-e>', '<cmd>NvimTreeToggle<cr>') -- open the nvim tree (mapped in iTerm to CMD-E)
 
 vim.keymap.set({ 'n', 'v' }, '<C-g>', 'ggVG', { noremap = true, silent = true })

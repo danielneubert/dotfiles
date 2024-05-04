@@ -13,25 +13,28 @@ return {
     opts = {
       keywords = {
         DEV = {
-          -- DEV: Important keywords
+          -- DEV Important keywords
           color = 'error',
           alt = { 'DEBUG', 'FIX', 'BUG', 'ISSUE' },
         },
         WARN = {
-          -- WARN: Warning keywords
+          -- WARN Warning keywords
           color = 'warning',
           alt = { 'WARNING', 'XXX' },
         },
         NOTE = {
-          -- NOTE: Info keywords
+          -- NOTE Info keywords
           color = 'hint',
           alt = { 'INFO' },
         },
         TEST = {
-          -- TEST: Unwanted keywords
+          -- TEST Unwanted keywords
           color = 'default',
           alt = { 'OPTIMIZE', 'TESTING', 'TEST', 'PASSED', 'FAILED', 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'HACK', 'PERF', 'PERFORMANCE' },
         },
+      },
+      highlight = {
+        pattern = [[.*<(KEYWORDS)\s]],
       },
       signs = false,
       colors = {
@@ -39,6 +42,17 @@ return {
         warn = { 'DiagnosticWarn', 'WarningMsg' },
         note = { 'DiagnosticHint' },
         default = { 'Normal' },
+      },
+      search = {
+        command = 'rg',
+        args = {
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+        },
+        pattern = [[\b(KEYWORDS)\b]],
       },
     },
   },

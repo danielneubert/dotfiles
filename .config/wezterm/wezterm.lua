@@ -9,44 +9,65 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
--- Changing the cursor to something you'll see everywhere
+-- Set the cursor colors
 config.colors = {
-  cursor_bg = '#F00045',
   cursor_fg = 'black',
-  -- cursor_bg = "#eb6f92",
-  cursor_border = '#eb6f92',
+  cursor_bg = '#F00045',
+  cursor_border = '#F00045',
 }
+
+-- Set the cursor shape & config
+config.cursor_blink_rate = 300
+config.cursor_blink_ease_in = 'Constant'
+config.cursor_blink_ease_out = 'Constant'
+config.default_cursor_style = 'BlinkingBlock'
+
+-- Make the window look like it has macOS translucency
 config.window_background_opacity = 0.96
 config.macos_window_background_blur = 48
 
+-- Color scheme based on time of day
+local function get_colorscheme()
+  local appearance = 'Dark'
+  if wezterm.gui then
+    appearance = wezterm.gui.get_appearance()
+  end
+
+  if appearance:find 'Dark' then
+    return 'rose-pine'
+  else
+    return 'rose-pine-dawn'
+  end
+end
+
 -- Color scheme based on macOS appearance
-config.color_scheme = 'rose-pine'
+config.color_scheme = get_colorscheme()
 
 -- Make the window perfect
 config.enable_tab_bar = false
 config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
 config.exit_behavior = 'CloseOnCleanExit'
 config.window_padding = {
+  top = 2,
   left = 0,
   right = 0,
-  top = 2,
   bottom = 0,
 }
-
-config.cursor_blink_rate = 300
-config.cursor_blink_ease_in = 'Constant'
-config.cursor_blink_ease_out = 'Constant'
-config.default_cursor_style = 'BlinkingBlock'
 
 -- Run the fish shell by default
 -- This will enable to have the default zsh shell on the macos terminal for fallback cases
 config.default_prog = { '/opt/homebrew/bin/fish' }
 
+-- Just some font stuff
 config.freetype_load_target = 'Normal'
-
 config.font_size = 18
 config.line_height = 1
-config.font = wezterm.font('Fira Code', { weight = 450, stretch = 'Normal', style = 'Normal' })
+config.font = wezterm.font {
+  family = 'MonoLisa',
+  stretch = 'Normal',
+  harfbuzz_features = { 'zero', 'ss02', 'ss03', 'ss07', 'ss10', 'ss11', 'ss13', 'ss14', 'ss17' },
+  weight = 'Regular',
+}
 
 -- say that this macOS app works as a macOS app ...
 config.native_macos_fullscreen_mode = true

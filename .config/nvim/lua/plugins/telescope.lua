@@ -110,6 +110,18 @@ return {
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
+      -- when types <leader>fp first let the user input a fileextension like php
+      -- then load live_grep with the fileextension as filter
+      vim.keymap.set('n', '<leader>fp', function()
+        local filetype = vim.fn.input 'Enter file extension (e.g., php): '
+        if filetype ~= nil and filetype ~= '' then
+          builtin.live_grep {
+            prompt_title = 'Live Grep (*.' .. filetype .. ' files)',
+            type_filter = filetype,
+          }
+        end
+      end, { desc = '[/] Fuzzily search in current buffer' })
+
       vim.keymap.set('n', '<leader>/', function()
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           previewer = false,

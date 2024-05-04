@@ -3,16 +3,16 @@
     {
       "if" : {
         "device" : {
-          "productName" : "USB Receiver",
+          "vendorID" : "0x46d",
           "category" : "mouse",
           "productID" : "0xc547",
-          "vendorID" : "0x46d"
+          "productName" : "USB Receiver"
         }
       },
       "pointer" : {
-        "acceleration" : 0.6,
-        "disableAcceleration" : true,
-        "speed" : 0.06
+        "acceleration" : 0.5,
+        "speed" : 0.06,
+        "disableAcceleration" : true
       }
     }
   ],
