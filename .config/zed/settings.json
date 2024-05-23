@@ -13,8 +13,8 @@
     "diagnostics": false
   },
   "theme": "Catppuccin Macchiato",
-  "ui_font_size": 16,
-  "buffer_font_size": 18,
+  "ui_font_size": 20,
+  "buffer_font_size": 20,
   "buffer_font_family": "JetBrains Mono",
   "features": {
     // Show Copilot icon in status bar
