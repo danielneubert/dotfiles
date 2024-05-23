@@ -23,28 +23,143 @@ config.cursor_blink_ease_out = 'Constant'
 config.default_cursor_style = 'BlinkingBlock'
 
 -- Make the window look like it has macOS translucency
-config.window_background_opacity = 0.96
-config.macos_window_background_blur = 48
+config.window_background_opacity = 1
 
--- Color scheme based on time of day
-local function get_colorscheme()
+-- Return true if the macOS appearance is dark
+local is_dark = function()
   local appearance = 'Dark'
+
   if wezterm.gui then
     appearance = wezterm.gui.get_appearance()
   end
 
-  if appearance:find 'Dark' then
-    return 'rose-pine'
-  else
-    return 'rose-pine-dawn'
-  end
+  return appearance:find 'Dark'
 end
+
+-- Color scheme based on time of day
+local function get_colorscheme()
+  return 'duskfox'
+end
+
+-- Color scheme based on time of day
+local function get_colors()
+  return {
+    selection_fg = 'Black',
+    selection_bg = '#80B7FF',
+    cursor_fg = 'black',
+    cursor_bg = '#F00045',
+    cursor_border = '#F00045',
+    tab_bar = {
+      background = '#191726',
+
+      active_tab = {
+        bg_color = '#4b4673',
+        fg_color = '#eae8ff',
+      },
+
+      -- Inactive tabs are the tabs that do not have focus
+      inactive_tab = {
+        bg_color = '#2d2a45',
+        fg_color = '#817c9c',
+      },
+
+      -- You can configure some alternate styling when the mouse pointer
+      -- moves over inactive tabs
+      inactive_tab_hover = {
+        bg_color = '#4b4673',
+        fg_color = '#eae8ff',
+      },
+
+      -- The new tab button that let you create new tabs
+      new_tab = {
+        bg_color = '#191726',
+        fg_color = '#817c9c',
+      },
+
+      new_tab_hover = {
+        bg_color = '#4b4673',
+        fg_color = '#eae8ff',
+      },
+    },
+  }
+end
+
+-- Make the window perfect
+config.enable_tab_bar = true
+config.use_fancy_tab_bar = false
+config.tab_bar_at_bottom = true
+config.scrollback_lines = 3500
+config.tab_max_width = 40
 
 -- Color scheme based on macOS appearance
 config.color_scheme = get_colorscheme()
+config.colors = get_colors()
 
--- Make the window perfect
-config.enable_tab_bar = false
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+  local label = ''
+  local path = tab.active_pane.current_working_dir
+  local process = string.gsub(tab.active_pane.foreground_process_name, '(.*[/\\])(.*)', '%2')
+  local prefix = '[]'
+
+  if path ~= nil then
+    path = path.path
+
+    if path ~= nil then
+      path = path:gsub('/Users/' .. os.getenv 'USER' .. '/', '~/')
+    end
+  end
+
+  prefix = '[' .. (tab.tab_index + 1)
+
+  if process ~= nil and #process > 0 then
+    if process == 'ssh' then
+      path = '~~'
+    end
+
+    if process == 'fish' then
+      process = nil
+    end
+
+    if process ~= nil then
+      prefix = prefix .. '|' .. process
+    end
+  end
+
+  prefix = prefix .. '] '
+
+  if path ~= nil and #path > 0 then
+    label = prefix .. path .. ' '
+  else
+    label = prefix
+  end
+
+  -- for loop with value 3, 2 and 1
+  for i = 3, 1, -1 do
+    if #label > 32 then
+      local parts = {}
+
+      for part in path:gmatch '[^/]+/' do
+        local insertable = part:sub(1, i)
+
+        -- insertable end with / like "~/" remove the slash
+        if insertable:sub(-1) == '/' then
+          insertable = insertable
+        else
+          insertable = insertable .. '/'
+        end
+
+        if #insertable > 1 then
+          table.insert(parts, insertable)
+        end
+      end
+
+      label = prefix .. table.concat(parts) .. path:match '[^/]+$' .. ' '
+    end
+  end
+
+  return label
+end)
+
 config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
 config.exit_behavior = 'CloseOnCleanExit'
 config.window_padding = {
@@ -66,7 +181,7 @@ config.font = wezterm.font {
   family = 'MonoLisa',
   stretch = 'Normal',
   harfbuzz_features = { 'zero', 'ss02', 'ss03', 'ss07', 'ss10', 'ss11', 'ss13', 'ss14', 'ss17' },
-  weight = 'Regular',
+  weight = 500,
 }
 
 -- say that this macOS app works as a macOS app ...
@@ -122,18 +237,16 @@ Bind('CMD', 'F16', StartLockscreen())
 Bind('CMD|CTRL', 'f', wezterm.action.ToggleFullScreen)
 
 -- tmux bindings
-Bind('CMD', 't', SendKey('CTRL', 'F6'))
-Bind('CMD', 'n', SendKey('CTRL', 'F6'))
-Bind('CMD|SHIFT', 'q', SendKey('CTRL', 'F7'))
-Bind('CMD|SHIFT', 'w', SendKey('CTRL', 'F7'))
-Bind('CMD|ALT|SHIFT', 'w', wezterm.action.CloseCurrentTab { confirm = true })
-Bind('CMD', 'j', SendKey('CTRL', 'F8'))
-Bind('CMD', 'k', SendKey('CTRL', 'F9'))
-Bind('CMD', '1', SendKey('CTRL', 'F1'))
-Bind('CMD', '2', SendKey('CTRL', 'F2'))
-Bind('CMD', '3', SendKey('CTRL', 'F3'))
-Bind('CMD', '4', SendKey('CTRL', 'F4'))
-Bind('CMD', '5', SendKey('CTRL', 'F5'))
+Bind('CMD', 't', wezterm.action { SpawnTab = 'CurrentPaneDomain' })
+Bind('CMD', 'n', wezterm.action { SpawnTab = 'CurrentPaneDomain' })
+Bind('CMD|SHIFT', 'q', wezterm.action { CloseCurrentPane = { confirm = false } })
+Bind('CMD|SHIFT', 'w', wezterm.action { CloseCurrentTab = { confirm = false } })
+Bind('CMD', 'j', wezterm.action.ActivateLastTab)
+Bind('CMD', '1', wezterm.action { ActivateTab = 0 })
+Bind('CMD', '2', wezterm.action { ActivateTab = 1 })
+Bind('CMD', '3', wezterm.action { ActivateTab = 2 })
+Bind('CMD', '4', wezterm.action { ActivateTab = 3 })
+Bind('CMD', '5', wezterm.action { ActivateTab = 4 })
 
 -- vim bindings
 Bind('CMD', 'a', SendKey('CTRL', 'g')) -- visual mode select all
