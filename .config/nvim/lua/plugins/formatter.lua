@@ -1,6 +1,7 @@
 return {
   {
     'stevearc/conform.nvim',
+    priority = 1000,
     event = { 'BufWritePre' },
     opts = {
       formatters_by_ft = {

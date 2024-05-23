@@ -1,14 +1,25 @@
 return {
+
   {
     'neovim/nvim-lspconfig',
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      { 'j-hui/fidget.nvim', opts = {} },
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/nvim-cmp',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'j-hui/fidget.nvim',
     },
+
     config = function()
+      local cmp = require 'cmp'
+      local cmp_lsp = require 'cmp_nvim_lsp'
+      local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -38,117 +49,110 @@ return {
         end,
       })
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      require('fidget').setup {}
+      require('mason').setup()
+      require('mason-lspconfig').setup {
+        ensure_installed = {
+          'lua_ls',
+          'rust_analyzer',
+          'gopls',
+        },
+        handlers = {
+          function(server_name) -- default handler (optional)
+            require('lspconfig')[server_name].setup {
+              capabilities = capabilities,
+            }
+          end,
 
-      local servers = {
-        lua_ls = {
-          settings = {
-            Lua = {
-              runtime = { version = 'LuaJIT' },
-              workspace = {
-                checkThirdParty = false,
-                library = {
-                  '${3rd}/luv/library',
-                  unpack(vim.api.nvim_get_runtime_file('', true)),
+          ['lua_ls'] = function()
+            local lspconfig = require 'lspconfig'
+            lspconfig.lua_ls.setup {
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  runtime = { version = 'Lua 5.1' },
+                  diagnostics = {
+                    globals = { 'vim', 'it', 'describe', 'before_each', 'after_each' },
+                  },
                 },
               },
-              completion = {
-                callSnippet = 'Replace',
-              },
-            },
-          },
-        },
-      }
-
-      require('mason').setup()
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua',
-        'css-lsp',
-        'docker-compose-language-service',
-        'dockerfile-language-server',
-        'goimports',
-        'golangci-lint',
-        'gopls',
-        'html-lsp',
-        'json-lsp',
-        'lua-language-server',
-        'php-cs-fixer',
-        'phpactor',
-        'prettier',
-        'stylua',
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            }
           end,
         },
       }
-    end,
-  },
 
-  {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    dependencies = {
-      {
-        'L3MON4D3/LuaSnip',
-        build = (function()
-          if vim.fn.executable 'make' == 0 then
-            return
-          end
-          return 'make install_jsregexp'
-        end)(),
-      },
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-    },
-    config = function()
-      local cmp = require 'cmp'
-      local luasnip = require 'luasnip'
-      luasnip.config.setup {}
+      local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
       cmp.setup {
         snippet = {
           expand = function(args)
-            luasnip.lsp_expand(args.body)
+            require('luasnip').lsp_expand(args.body)
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
-
         mapping = cmp.mapping.preset.insert {
-          ['<M-j>'] = cmp.mapping.select_next_item(),
-          ['<M-k>'] = cmp.mapping.select_prev_item(),
+          ['<M-k>'] = cmp.mapping.select_prev_item(cmp_select),
+          ['<M-j>'] = cmp.mapping.select_next_item(cmp_select),
           ['<Tab>'] = cmp.mapping.confirm { select = true },
         },
-        sources = {
+        sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+        }, {
+          { name = 'buffer' },
+        }),
+      }
+
+      vim.diagnostic.config {
+        float = {
+          focusable = false,
+          style = 'minimal',
+          border = 'rounded',
+          source = 'always',
+          header = '',
+          prefix = '',
         },
       }
     end,
   },
-
   {
     'nvim-treesitter/nvim-treesitter',
+    priority = 1000,
     build = ':TSUpdate',
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'php', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = {
+          'vimdoc',
+          'javascript',
+          'typescript',
+          'c',
+          'lua',
+          'rust',
+          'jsdoc',
+          'bash',
+        },
+        sync_install = false,
         auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
+        indent = {
+          enable = true,
+        },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { 'markdown' },
+        },
       }
+
+      local treesitter_parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+      treesitter_parser_config.templ = {
+        install_info = {
+          url = 'https://github.com/vrischmann/tree-sitter-templ.git',
+          files = { 'src/parser.c', 'src/scanner.c' },
+          branch = 'master',
+        },
+      }
+
+      vim.treesitter.language.register('templ', 'templ')
     end,
   },
 }

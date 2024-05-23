@@ -2,11 +2,13 @@ return {
   {
     -- adjust tab width automatically
     'tpope/vim-sleuth',
+    priority = 1000,
   },
 
   {
     -- helps for new commands
     'folke/which-key.nvim',
+    priority = 2000,
     event = 'VimEnter',
     config = function()
       require('which-key').setup()

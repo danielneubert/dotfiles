@@ -44,6 +44,12 @@ function update
     printf "%b" "$COLOR_BLUE\e0\n[npm 📦] Updating global npm dependencies ...\n$COLOR_RESET"
     npm update -g
 
+    printf "%b" "$COLOR_GREEN\e0\n[nvim 📝] Updating NeoVim Lazy Packages ...\n$COLOR_RESET"
+    nvim --headless "+Lazy! sync" +qa
+    nvim --headless "+MasonUpdate" +qa
+    nvim --headless "+MasonToolsUpdate" +qa
+    nvim --headless "+MasonToolsUpdateSync" +qa
+
     printf "%b" "$COLOR_GREEN\e0\nDONE! Do something amazing \u2764\n$COLOR_RESET"
 end
 

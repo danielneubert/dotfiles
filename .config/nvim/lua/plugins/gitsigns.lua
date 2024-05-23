@@ -1,6 +1,7 @@
 return {
   {
     'lewis6991/gitsigns.nvim',
+    priority = 1,
     opts = {
       signs = {
         add = { text = '+' },

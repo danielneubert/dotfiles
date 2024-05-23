@@ -1,6 +1,7 @@
 return {
   {
     'zbirenbaum/copilot.lua',
+    priority = 1000,
     opts = {
       suggestion = {
         enabled = true,

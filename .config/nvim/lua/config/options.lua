@@ -8,7 +8,7 @@ vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 100
 vim.opt.timeoutlen = 300
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '⇥ ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.g.disable_autoformat = true
 

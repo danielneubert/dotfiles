@@ -1,6 +1,7 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
+    priority = 1000,
     event = 'VimEnter',
     branch = '0.1.x',
     dependencies = {
@@ -38,6 +39,7 @@ return {
             '.docker/mysql',
             '.docker/redis',
             'node%_modules/',
+            'vendor/',
             'wp%-admin/',
             'wp%-includes/',
             'wp%-content/cache/',

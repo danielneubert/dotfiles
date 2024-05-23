@@ -1,5 +1,4 @@
 # Create the `la` alias for a more readable `ls`
-# alias la='lsd -l -A --tree --depth 1 --date relative --group-dirs first --icon never --blocks "name,size,date"'
 alias la='lsd -l -A --tree --depth 1 --date relative --group-dirs first --blocks "name,size,date"'
 alias vim='nvim'
 
@@ -13,18 +12,14 @@ set -U fish_user_paths /usr/local/bin /opt/homebrew/sbin /opt/homebrew/bin $HOME
 # Make the .config accessible everywhere
 alias ..c='cd ~/.dotfiles/.config && vim'
 
-# Make "cat demo.txt" to "bat --theme ansi demo.txt"
-# alias cat='bat --theme base16'
-# alias ccat='/bin/cat'
+# Search command to find files in the current directory
+function search
+    find ./ -type f 2>/dev/null | grep -iF $argv
+end
 
 # Load all files within the configs directory
 for config_file in (find $HOME/.config/fish/configs -path "*/*.fish" -depth 1 -type f)
     builtin source $config_file 2> /dev/null
-end
-
-if status is-interactive
-and not set -q TMUX
-    exec tmux
 end
 
 # Remove the fish greeting

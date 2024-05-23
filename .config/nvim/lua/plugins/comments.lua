@@ -1,11 +1,13 @@
 return {
   {
     'numToStr/Comment.nvim',
+    priority = 1000,
     opts = {},
   },
 
   {
     'folke/todo-comments.nvim',
+    priority = 1000,
     event = 'VimEnter',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -25,12 +27,17 @@ return {
         NOTE = {
           -- NOTE Info keywords
           color = 'hint',
-          alt = { 'INFO' },
+          alt = { 'INFO', 'NOTE:' },
         },
         TEST = {
           -- TEST Unwanted keywords
           color = 'default',
           alt = { 'OPTIMIZE', 'TESTING', 'TEST', 'PASSED', 'FAILED', 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'HACK', 'PERF', 'PERFORMANCE' },
+        },
+        TODO = {
+          -- TODO Unwanted keywords
+          color = 'default',
+          alt = { 'TODO:' },
         },
       },
       highlight = {

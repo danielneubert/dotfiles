@@ -1,9 +1,11 @@
 return {
   {
     'nvim-tree/nvim-web-devicons',
+    priority = 1000,
   },
   {
     'echasnovski/mini.nvim',
+    priority = 1000,
     config = function()
       require('mini.ai').setup { n_lines = 500 }
 

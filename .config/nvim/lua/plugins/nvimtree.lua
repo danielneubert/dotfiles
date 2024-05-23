@@ -1,6 +1,7 @@
 return {
   {
     'nvim-tree/nvim-tree.lua',
+    priority = 1000,
     opts = {
       view = {
         cursorline = true,

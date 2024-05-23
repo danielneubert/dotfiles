@@ -8,12 +8,10 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
-
   spec = {
     {
       import = 'plugins',
       opts = {
-        colorscheme = 'solarized-osaka',
         news = {
           lazyvim = true,
           neovim = true,
