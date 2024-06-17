@@ -14,33 +14,37 @@ return {
     end,
   },
   {
-    'EdenEast/nightfox.nvim',
+    'rebelot/kanagawa.nvim',
     priority = 1000,
     config = function()
-      function ColorNightFox()
-        require('nightfox').setup {}
-        vim.cmd 'colorscheme duskfox'
+      function ColorKanagawa()
+        require('kanagawa').setup {
+          commentStyle = { italic = true },
+          functionStyle = { italic = true },
+          keywordStyle = { italic = true },
+          typeStyle = { italic = true },
+        }
+        vim.cmd.colorscheme 'kanagawa-wave'
+      end
+
+      function ColorKanagawaDay()
+        require('kanagawa').setup {
+          commentStyle = { italic = true },
+          functionStyle = { italic = true },
+          keywordStyle = { italic = true },
+          typeStyle = { italic = true },
+        }
+        vim.cmd.colorscheme 'kanagawa-lotus'
       end
 
       vim.api.nvim_create_user_command('Dark', function()
-        ColorNightFox()
+        ColorKanagawa()
       end, {})
 
-      ColorNightFox()
-    end,
-  },
-  {
-    'maxmx03/solarized.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      function ColorSolarizedLight()
-        vim.o.background = 'light'
-        vim.cmd.colorscheme 'solarized'
-      end
+      ColorKanagawa()
 
       vim.api.nvim_create_user_command('Day', function()
-        ColorSolarizedLight()
+        ColorKanagawaDay()
       end, {})
     end,
   },

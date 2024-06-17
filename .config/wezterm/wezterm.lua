@@ -38,7 +38,8 @@ end
 
 -- Color scheme based on time of day
 local function get_colorscheme()
-  return 'duskfox'
+  return 'Kanagawa (Gogh)'
+  -- return 'duskfox'
 end
 
 -- Color scheme based on time of day
@@ -50,35 +51,35 @@ local function get_colors()
     cursor_bg = '#F00045',
     cursor_border = '#F00045',
     tab_bar = {
-      background = '#191726',
+      background = '#1F1F28',
 
       active_tab = {
-        bg_color = '#4b4673',
-        fg_color = '#eae8ff',
+        bg_color = '#363646',
+        fg_color = '#C8C093',
       },
 
       -- Inactive tabs are the tabs that do not have focus
       inactive_tab = {
-        bg_color = '#2d2a45',
-        fg_color = '#817c9c',
+        bg_color = '#1a1a22',
+        fg_color = '#727169',
       },
 
       -- You can configure some alternate styling when the mouse pointer
       -- moves over inactive tabs
       inactive_tab_hover = {
-        bg_color = '#4b4673',
-        fg_color = '#eae8ff',
+        bg_color = '#363646',
+        fg_color = '#C8C093',
       },
 
       -- The new tab button that let you create new tabs
       new_tab = {
-        bg_color = '#191726',
-        fg_color = '#817c9c',
+        bg_color = '#1F1F28',
+        fg_color = '#727169',
       },
 
       new_tab_hover = {
-        bg_color = '#4b4673',
-        fg_color = '#eae8ff',
+        bg_color = '#363646',
+        fg_color = '#C8C093',
       },
     },
   }
@@ -89,7 +90,7 @@ config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.scrollback_lines = 3500
-config.tab_max_width = 40
+config.tab_max_width = 50
 
 -- Color scheme based on macOS appearance
 config.color_scheme = get_colorscheme()
@@ -193,7 +194,7 @@ function StartLockscreen()
     wezterm.background_child_process {
       'shortcuts',
       'run',
-      'Bildschirmschoner ein', -- DE: Screensaver on
+      'Bildschirm sperren (Ergo)',
     }
   end)
 end

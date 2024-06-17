@@ -1,5 +1,7 @@
 # global variable for casks
 
+alias docknet = 'docker network inspect $(docker network ls | awk \'$3 == "bridge" { print $1}\') | jq -r \'.[] | .IPAM.Config[0].Subnet + "\t" + .Name\' -'
+
 function outdated
     set -U COLOR_RESET  "\033[0m"
     set -U COLOR_GREEN  "\033[0;32m"
@@ -47,8 +49,6 @@ function update
     printf "%b" "$COLOR_GREEN\e0\n[nvim 📝] Updating NeoVim Lazy Packages ...\n$COLOR_RESET"
     nvim --headless "+Lazy! sync" +qa
     nvim --headless "+MasonUpdate" +qa
-    nvim --headless "+MasonToolsUpdate" +qa
-    nvim --headless "+MasonToolsUpdateSync" +qa
 
     printf "%b" "$COLOR_GREEN\e0\nDONE! Do something amazing \u2764\n$COLOR_RESET"
 end
