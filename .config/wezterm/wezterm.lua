@@ -52,35 +52,35 @@ local function get_colors()
     cursor_bg = '#F00045',
     cursor_border = '#F00045',
     tab_bar = {
-      background = '#1F1F28',
+      background = '#021727',
 
       active_tab = {
-        bg_color = '#363646',
-        fg_color = '#C8C093',
+        bg_color = '#89a4bb',
+        fg_color = '#021727',
       },
 
       -- Inactive tabs are the tabs that do not have focus
       inactive_tab = {
-        bg_color = '#1a1a22',
-        fg_color = '#727169',
+        bg_color = '#021727',
+        fg_color = '#89a4bb',
       },
 
       -- You can configure some alternate styling when the mouse pointer
       -- moves over inactive tabs
       inactive_tab_hover = {
-        bg_color = '#363646',
-        fg_color = '#C8C093',
+        bg_color = '#021727',
+        fg_color = '#89a4bb',
       },
 
       -- The new tab button that let you create new tabs
       new_tab = {
-        bg_color = '#1F1F28',
-        fg_color = '#727169',
+        bg_color = '#021727',
+        fg_color = '#021727',
       },
 
       new_tab_hover = {
-        bg_color = '#363646',
-        fg_color = '#C8C093',
+        bg_color = '#89a4bb',
+        fg_color = '#021727',
       },
     },
   }

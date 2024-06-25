@@ -19,16 +19,18 @@ return {
             local git = statusline.section_git { trunc_width = 75 }
             local filename = statusline.section_filename { trunc_width = 140 }
             local search = statusline.section_searchcount { trunc_width = 75 }
-            local location = string.format('%d:%d', vim.fn.line '.', vim.fn.col '.')
+
+            if mode_hl == 'MiniStatuslineModeNormal' then
+              mode_hl = 'MiniStatuslineFilename'
+            end
 
             return statusline.combine_groups {
               { hl = mode_hl, strings = { mode } },
               { hl = 'MiniStatuslineDevinfo', strings = { filename } },
-              '%<', -- Mark general truncate point
-              '%=', -- End left alignment
+              '%<',
+              '%=',
               { hl = 'MiniStatuslineFilename', strings = { git } },
               { hl = 'MiniStatuslineDevinfo', strings = { search } },
-              { hl = mode_hl, strings = { location } },
             }
           end,
         },
