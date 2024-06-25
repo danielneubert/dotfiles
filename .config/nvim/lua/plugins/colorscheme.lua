@@ -1,51 +1,37 @@
+function setColors(name, config, schemeName)
+  config = config or {}
+  schemeName = schemeName or name
+  require(name).setup(config)
+  vim.cmd.colorscheme(schemeName)
+end
+
 return {
   {
     'projekt0n/github-nvim-theme',
     priority = 1000,
     config = function()
       function ColorGitHub()
-        require('github-theme').setup {}
-        vim.cmd 'colorscheme github_light_default'
+        setColors('github-theme', {}, 'github_light_default')
       end
 
-      vim.api.nvim_create_user_command('Sun', function()
+      vim.api.nvim_create_user_command('Day', function()
         ColorGitHub()
       end, {})
     end,
   },
   {
-    'rebelot/kanagawa.nvim',
+    'oxfist/night-owl.nvim',
     priority = 1000,
     config = function()
-      function ColorKanagawa()
-        require('kanagawa').setup {
-          commentStyle = { italic = true },
-          functionStyle = { italic = true },
-          keywordStyle = { italic = true },
-          typeStyle = { italic = true },
-        }
-        vim.cmd.colorscheme 'kanagawa-wave'
-      end
-
-      function ColorKanagawaDay()
-        require('kanagawa').setup {
-          commentStyle = { italic = true },
-          functionStyle = { italic = true },
-          keywordStyle = { italic = true },
-          typeStyle = { italic = true },
-        }
-        vim.cmd.colorscheme 'kanagawa-lotus'
+      function ColorOwl()
+        setColors 'night-owl'
       end
 
       vim.api.nvim_create_user_command('Dark', function()
-        ColorKanagawa()
+        ColorOwl()
       end, {})
 
-      ColorKanagawa()
-
-      vim.api.nvim_create_user_command('Day', function()
-        ColorKanagawaDay()
-      end, {})
+      ColorOwl()
     end,
   },
 }

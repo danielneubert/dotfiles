@@ -67,9 +67,6 @@ vim.opt.iskeyword:append '$'
 -- vim.opt.list = false
 -- vim.opt.listchars:append 'space:⋅'
 
--- Disable BarBar Auto Setup (don't ask me why)
-vim.g.barbar_auto_setup = false
-
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),

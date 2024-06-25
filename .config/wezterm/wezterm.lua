@@ -38,7 +38,8 @@ end
 
 -- Color scheme based on time of day
 local function get_colorscheme()
-  return 'Kanagawa (Gogh)'
+  return 'Night Owl (Gogh)'
+  -- return 'Tokyo Night Moon'
   -- return 'duskfox'
 end
 
