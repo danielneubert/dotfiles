@@ -7,7 +7,7 @@ function l --on-variable PWD
     la
 end
 
-set -U fish_user_paths /usr/local/bin /opt/homebrew/sbin /opt/homebrew/bin $HOME/.composer/vendor/bin $fisher_user_paths
+set -U fish_user_paths /usr/local/bin /opt/homebrew/sbin /opt/homebrew/bin $HOME/.composer/vendor/bin $fisher_user_paths $HOME/go/bin
 
 # Make the .config accessible everywhere
 alias ..c='cd ~/.dotfiles/.config && vim'
@@ -15,6 +15,11 @@ alias ..c='cd ~/.dotfiles/.config && vim'
 # Search command to find files in the current directory
 function search
     find ./ -type f 2>/dev/null | grep -iF $argv
+end
+
+# Search command to find files in the current directory
+function searchin
+    grep -r $argv .
 end
 
 # Load all files within the configs directory
