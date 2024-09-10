@@ -1,28 +1,28 @@
 return {
-  {
-    'zbirenbaum/copilot.lua',
-    priority = 1000,
-    opts = {
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 50,
-        keymap = {
-          accept = '<M-Tab>',
+    {
+        'zbirenbaum/copilot.lua',
+        priority = 1000,
+        opts = {
+            suggestion = {
+                auto_trigger = true,
+                debounce = 200,
+                enabled = true,
+                keymap = {
+                    accept = '<M-Tab>', -- Alt + Tab (macOS)
+                },
+            },
+            filetypes = {
+                ['.'] = false,
+                ['.env'] = false,
+                cvs = false,
+                gitcommit = false,
+                gitrebase = false,
+                help = false,
+                hgcommit = false,
+                markdown = false,
+                svn = false,
+                yaml = false,
+            },
         },
-      },
-      filetypes = {
-        yaml = false,
-        markdown = false,
-        help = false,
-        gitcommit = false,
-        gitrebase = false,
-        hgcommit = false,
-        svn = false,
-        cvs = false,
-        ['.'] = false,
-        ['.env'] = false,
-      },
     },
-  },
 }

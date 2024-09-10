@@ -12,16 +12,9 @@ function SetupAppearance(config)
   config.tab_bar_at_bottom = true
   config.tab_max_width = 50
   config.use_fancy_tab_bar = false
-  config.window_background_opacity = 0.925
+  config.window_background_opacity = 0.975
   config.macos_window_background_blur = 48
-  -- config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
-  -- config.window_padding = {
-  --   top = 0,
-  --   left = 0,
-  --   right = 0,
-  --   bottom = 0,
-  -- }
-  config.window_decorations = 'RESIZE|MACOS_FORCE_ENABLE_SHADOW'
+  config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
   config.window_padding = {
     top = 2,
     left = 2,
@@ -30,5 +23,5 @@ function SetupAppearance(config)
   }
 
   -- Colors
-  config.color_scheme = 'Tokyo Night Moon'
+  config.color_scheme = 'Catppuccin Mocha'
 end

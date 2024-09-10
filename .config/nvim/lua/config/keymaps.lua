@@ -18,8 +18,12 @@ vim.keymap.set('v', '<C-c>', '"*y')
 vim.api.nvim_set_keymap('i', ' ', '<Space>', { noremap = true })
 
 vim.keymap.set({ 'n', 'v' }, '<C-s>', function()
-  require('conform').format { async = false, lsp_fallback = true }
-  vim.cmd 'w!'
+    -- check if command "Format" exists
+    -- vim.cmd 'Format'
+    if vim.fn.exists(':Format') == 2 then
+        vim.cmd 'Format'
+    end
+    vim.cmd 'w!'
 end)
 
 vim.keymap.set('n', '<leader>fe', '<cmd>NvimTreeToggle<cr>', { desc = '[F]ind in [E]xplorer' })
@@ -30,17 +34,17 @@ vim.keymap.set({ 'n', 'v' }, '<C-g>', 'ggVG', { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>sv', '<C-w>v', { desc = '[S]plit [V]ertical (right)' }) -- split vertical
 vim.keymap.set('n', '<leader>sc', '<C-w>s', { desc = '[S]plit Horizontal (below)' }) -- split vertical
-vim.keymap.set('n', '<leader>se', '<C-w>=', { desc = '[S]plit [E]qual Width' }) -- split vertical
-vim.keymap.set('n', '<leader>sw', '<cmd>close<cr>', { desc = 'Close [S]plit' }) -- close active split
-vim.keymap.set('n', '<leader>sh', '<C-w>h', { desc = 'Go left [S]plit' }) -- move cursor next split
-vim.keymap.set('n', '<leader>sj', '<C-w>j', { desc = 'Go lower [S]plit' }) -- move cursor next split
-vim.keymap.set('n', '<leader>sk', '<C-w>k', { desc = 'Go upper [S]plit' }) -- move cursor prev split
-vim.keymap.set('n', '<leader>sl', '<C-w>l', { desc = 'Go right [S]plit' }) -- move cursor prev split
-vim.keymap.set('n', '<M-w>', '<cmd>close<cr>') -- close active split
-vim.keymap.set('n', '<M-h>', '<C-w>h') -- move cursor next split
-vim.keymap.set('n', '<M-l>', '<C-w>l') -- move cursor prev split
-vim.keymap.set('n', '<M-j>', '<C-w>j') -- move cursor next split
-vim.keymap.set('n', '<M-k>', '<C-w>k') -- move cursor prev split
+vim.keymap.set('n', '<leader>se', '<C-w>=', { desc = '[S]plit [E]qual Width' })      -- split vertical
+vim.keymap.set('n', '<leader>sw', '<cmd>close<cr>', { desc = 'Close [S]plit' })      -- close active split
+vim.keymap.set('n', '<leader>sh', '<C-w>h', { desc = 'Go left [S]plit' })            -- move cursor next split
+vim.keymap.set('n', '<leader>sj', '<C-w>j', { desc = 'Go lower [S]plit' })           -- move cursor next split
+vim.keymap.set('n', '<leader>sk', '<C-w>k', { desc = 'Go upper [S]plit' })           -- move cursor prev split
+vim.keymap.set('n', '<leader>sl', '<C-w>l', { desc = 'Go right [S]plit' })           -- move cursor prev split
+vim.keymap.set('n', '<M-w>', '<cmd>close<cr>')                                       -- close active split
+vim.keymap.set('n', '<M-h>', '<C-w>h')                                               -- move cursor next split
+vim.keymap.set('n', '<M-l>', '<C-w>l')                                               -- move cursor prev split
+vim.keymap.set('n', '<M-j>', '<C-w>j')                                               -- move cursor next split
+vim.keymap.set('n', '<M-k>', '<C-w>k')                                               -- move cursor prev split
 
 vim.keymap.set('n', '<leader>th', '<cmd>bpre<cr>')
 vim.keymap.set('n', '<leader>tl', '<cmd>bnext<cr>')

@@ -1,48 +1,47 @@
-function SetColors(name, config, schemeName)
-  config = config or {}
-  schemeName = schemeName or name
-  require(name).setup(config)
-  vim.cmd.background = 'dark'
-  vim.cmd.colorscheme(schemeName)
+local function setColors(name, config, schemeName)
+    config = config or {}
+    schemeName = schemeName or name
+    require(name).setup(config)
+    vim.cmd.background = 'dark'
+    vim.cmd.colorscheme(schemeName)
 end
 
 return {
-  {
-    'projekt0n/github-nvim-theme',
-    priority = 1000,
-    config = function()
-      function ColorGitHub()
-        SetColors('github-theme', {}, 'github_light_default')
-      end
+    {
+        'projekt0n/github-nvim-theme',
+        priority = 1000,
+        config = function()
+            function ColorGitHub()
+                setColors('github-theme', {}, 'github_light_default')
+            end
 
-      vim.api.nvim_create_user_command('Day', function()
-        ColorGitHub()
-      end, {})
-    end,
-  },
-  {
-    'folke/tokyonight.nvim',
-    priority = 1000,
-    config = function()
-      function ColorDark()
-        SetColors('tokyonight', {
-          style = 'moon',
-          light_style = 'moon',
-          transparent = true,
-          styles = {
-            comments = { italic = true },
-            functions = { italic = true },
-            keywords = { italic = false },
-            variables = { italic = true },
-          },
-        }, 'tokyonight-moon')
-      end
+            vim.api.nvim_create_user_command('Day', function()
+                ColorGitHub()
+            end, {})
+        end,
+    },
+    {
+        'catppuccin/nvim',
+        priority = 1000,
+        config = function()
+            function ColorCat()
+                setColors('catppuccin', {
+                    flavour = 'mocha',
+                    transparent_background = true, -- disables setting the background color.
+                    show_end_of_buffer = true,     -- shows the '~' characters after the end of buffers
+                    term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
+                    styles = {                     -- Handles the styles of general hi groups (see `:h highlight-args`):
+                        comments = { 'italic' },   -- Change the style of comments
+                        strings = { 'italic' },
+                    },
+                })
+            end
 
-      vim.api.nvim_create_user_command('Dark', function()
-        ColorDark()
-      end, {})
+            vim.api.nvim_create_user_command('Cat', function()
+                ColorCat()
+            end, {})
 
-      ColorDark()
-    end,
-  },
+            ColorCat()
+        end,
+    },
 }

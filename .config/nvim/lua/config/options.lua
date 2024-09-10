@@ -1,5 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
 vim.opt.mouse = 'a'
 vim.opt.showmode = false
 vim.opt.breakindent = true
@@ -60,17 +61,13 @@ vim.opt.termguicolors = true
 -- Color Setup
 vim.opt.foldenable = false
 
--- PHP word seperation to select $this
+-- PHP word seperation to select [$this] not $[this]
 vim.opt.iskeyword:append '$'
 
--- Highlight invisible chars
--- vim.opt.list = false
--- vim.opt.listchars:append 'space:⋅'
-
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
