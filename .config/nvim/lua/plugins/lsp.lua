@@ -56,18 +56,19 @@ return {
             -- Ensure the servers above are installed
             require('mason-lspconfig').setup {
                 ensure_installed = servers,
+                handlers = {
+                    function(server_name)
+                        require('lspconfig')[server_name].setup {
+                            on_attach = on_attach,
+                            capabilities = capabilities,
+                        }
+                    end,
+                }
             }
 
             -- nvim-cmp supports additional completion capabilities
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-            for _, lsp in ipairs(servers) do
-                require('lspconfig')[lsp].setup {
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                }
-            end
 
             -- go
             require('lspconfig').gopls.setup({
@@ -113,6 +114,15 @@ return {
             }
 
             -- tailwind
+            require('lspconfig').phpactor.setup {
+                on_attach = on_attach,
+                capabilities = capabilities,
+                filetypes = {
+                    "php",
+                },
+            }
+
+            -- tailwind
             require('lspconfig').tailwindcss.setup {
                 on_attach = on_attach,
                 capabilities = capabilities,
@@ -126,7 +136,15 @@ return {
             }
 
             -- vue
-            require('lspconfig').volar.setup({})
+            require('lspconfig').volar.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                filetypes = {
+                    "javascript",
+                    "typescript",
+                    "vue",
+                },
+            })
             require('lspconfig').ts_ls.setup {
                 init_options = {
                     plugins = {
@@ -189,6 +207,21 @@ return {
         end,
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
+        },
+    },
+
+    { -- Use Mason formatters
+        'stevearc/conform.nvim',
+        event = { 'BufWritePre' },
+        opts = {
+            formatters_by_ft = {
+                go = { 'gofmt', 'goimports' },
+                javascript = { { 'prettierd', 'prettier' } },
+                json = { 'jq' },
+                lua = { 'stylua' },
+                php = { 'php_cs_fixer' },
+                ['*'] = { 'trim_newlines', 'trim_whitespace' },
+            },
         },
     },
 }

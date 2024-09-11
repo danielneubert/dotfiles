@@ -114,6 +114,10 @@ return {
                     '^\\.git',
                     'node_modules',
                     '^\\.DS_Store',
+                    'artisan',
+                    'composer.lock',
+                    'package-lock.json',
+                    '.php-cs-fixer.cache',
                 },
             },
             filesystem_watchers = {
@@ -134,13 +138,15 @@ return {
                 show_on_open_dirs = true,
             },
             trash = {
-                cmd = 'trash', -- enable trash instead of rm
+                -- move files to system trash instead of deleting them
+                cmd = 'trash',
             },
             on_attach = function(treeBuffer)
                 local api = require 'nvim-tree.api'
 
                 local map = function(key, call, desc)
-                    vim.keymap.set('n', key, call, { buffer = treeBuffer, desc = desc })
+                    vim.keymap.set('n', key, call, { buffer = treeBuffer })
+                    -- vim.keymap.set('n', key, call, { buffer = treeBuffer, desc = desc })
                 end
 
                 map('<C-e>', api.tree.close, 'Close NvimTree')
@@ -151,12 +157,11 @@ return {
                 map('sc', api.node.open.horizontal, 'Open in Horizontal Split')
                 map('d', api.fs.trash, 'Trash')
                 map('a', api.fs.create, 'Create')
-                map('o', api.fs.create, 'Create')
+                map('x', api.fs.cut, 'Cut')
                 map('y', api.fs.copy.node, 'Copy')
                 map('p', api.fs.paste, 'Paste')
                 map('r', api.tree.reload, 'Reload')
                 map('rn', api.fs.rename, 'Rename')
-                map('x', api.fs.cut, 'Cut')
                 map('?', api.tree.toggle_help, 'Show Help')
                 map('gh', api.tree.toggle_custom_filter, 'Toggle Hidden')
             end,

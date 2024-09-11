@@ -2,11 +2,11 @@ local wezterm = require 'wezterm'
 
 -- Color scheme based on time of day
 local function get_colors()
-  local colorBackground = '#1e2030'
-  local colorActiveFg = '#1e2030'
-  local colorActiveBg = '#828bb8'
-  local colorOthersFg = '#828bb8'
-  local colorOthersBg = '#2f334d'
+  local colorBackground = '#1e1e2e'
+  local colorActiveFg = '#181825'
+  local colorActiveBg = '#b4befe'
+  local colorOthersFg = '#9399b2'
+  local colorOthersBg = '#45475a'
 
   return {
     cursor_fg = 'black',
@@ -76,12 +76,16 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
       process = nil
     end
 
-    if process ~= nil then
-      prefix = prefix .. '|' .. process
-    end
+    -- if process ~= nil then
+    --   prefix = prefix .. '|' .. process
+    -- end
   end
 
   prefix = prefix .. '] '
+
+  if process ~= nil then
+    prefix = prefix .. process .. ' • '
+  end
 
   if path ~= nil and #path > 0 then
     label = prefix .. path .. ' '
@@ -91,7 +95,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
 
   -- for loop with value 3, 2 and 1
   for i = 3, 1, -1 do
-    if #label > 32 then
+    if #label > 40 then
       local parts = {}
 
       for part in path:gmatch '[^/]+/' do

@@ -12,8 +12,8 @@ function SetupAppearance(config)
   config.tab_bar_at_bottom = true
   config.tab_max_width = 50
   config.use_fancy_tab_bar = false
-  config.window_background_opacity = 0.975
-  config.macos_window_background_blur = 48
+  config.window_background_opacity = 0.965
+  config.macos_window_background_blur = 32
   config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
   config.window_padding = {
     top = 2,
