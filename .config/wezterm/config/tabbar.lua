@@ -2,11 +2,11 @@ local wezterm = require 'wezterm'
 
 -- Color scheme based on time of day
 local function get_colors()
-  local colorBackground = '#1e1e2e'
-  local colorActiveFg = '#181825'
-  local colorActiveBg = '#b4befe'
-  local colorOthersFg = '#9399b2'
-  local colorOthersBg = '#45475a'
+  local colorBackground = '#24283b'
+  local colorActiveFg = '#1f2335'
+  local colorActiveBg = '#7aa2f7'
+  local colorOthersFg = '#c0caf5'
+  local colorOthersBg = '#414868'
 
   return {
     cursor_fg = 'black',

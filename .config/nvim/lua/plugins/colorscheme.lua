@@ -40,8 +40,33 @@ return {
             vim.api.nvim_create_user_command('Cat', function()
                 ColorCat()
             end, {})
+        end,
+    },
+    {
+        'folke/tokyonight.nvim',
+        priority = 1000,
+        config = function()
+            function ColorDark()
+                setColors('tokyonight', {
+                    style = "storm",
+                    light_style = "storm",
+                    transparent = true,
+                    styles = {
+                        comments = { italic = true },
+                        keywords = { italic = true },
+                        functions = {},
+                        variables = {},
+                        sidebars = "dark",
+                        floats = "dark",
+                    },
+                })
+            end
 
-            ColorCat()
+            vim.api.nvim_create_user_command('Dark', function()
+                ColorDark()
+            end, {})
+
+            ColorDark()
         end,
     },
 }

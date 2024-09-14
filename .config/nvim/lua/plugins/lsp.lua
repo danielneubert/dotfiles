@@ -10,7 +10,6 @@ local on_attach = function(_, bufnr)
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         if vim.lsp.buf.format then
@@ -113,7 +112,7 @@ return {
                 },
             }
 
-            -- tailwind
+            -- php
             require('lspconfig').phpactor.setup {
                 on_attach = on_attach,
                 capabilities = capabilities,

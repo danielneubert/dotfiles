@@ -18,6 +18,9 @@ vim.keymap.set('v', '<C-c>', '"*y')
 vim.api.nvim_set_keymap('i', ' ', '<Space>', { noremap = true })
 
 vim.keymap.set({ 'n', 'v' }, '<C-s>', function()
+    if vim.fn.exists(':Format') == 2 then
+        vim.cmd 'Format'
+    end
     require('conform').format { async = false, lsp_fallback = true }
     vim.cmd 'w!'
 end)
