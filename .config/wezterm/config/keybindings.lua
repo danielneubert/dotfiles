@@ -55,8 +55,8 @@ function SetupKeybindings(config)
   Bind(config, 'CMD|SHIFT', 'w', wezterm.action { CloseCurrentTab = { confirm = false } })
   Bind(config, 'CMD|ALT', 'v', wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' })
   Bind(config, 'CMD|ALT', 'c', wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' })
+  Bind(config, 'CMD|ALT', 'f', wezterm.action.PaneSelect { alphabet = 'hlabcdefghijkl' })
   Bind(config, 'CMD|ALT', 'w', wezterm.action { CloseCurrentPane = { confirm = false } })
-  Bind(config, 'CMD|ALT', 'p', wezterm.action.PaneSelect { alphabet = '1234567890' })
   Bind(config, 'CMD', 'j', wezterm.action.ActivateLastTab)
   Bind(config, 'CMD', '1', wezterm.action { ActivateTab = 0 })
   Bind(config, 'CMD', '2', wezterm.action { ActivateTab = 1 })
@@ -65,9 +65,9 @@ function SetupKeybindings(config)
   Bind(config, 'CMD', '5', wezterm.action { ActivateTab = 4 })
 
   -- vim bindings
-  Bind(config, 'CMD', 'a', SendKey('CTRL', 'g')) -- select all
-  Bind(config, 'CMD', 'e', SendKey('CTRL', 'e')) -- open file explorer
-  Bind(config, 'CMD', 'l', SendKey('CTRL', 'p')) -- find file
-  Bind(config, 'CMD', 's', SendKey('CTRL', 's')) -- save file
+  Bind(config, 'CMD', 'a', SendKey('CTRL', 'g'))       -- select all
+  Bind(config, 'CMD', 'e', SendKey('CTRL', 'e'))       -- open file explorer
+  Bind(config, 'CMD', 'l', SendKey('CTRL', 'p'))       -- find file
+  Bind(config, 'CMD', 's', SendKey('CTRL', 's'))       -- save file
   Bind(config, 'CMD|SHIFT', 'c', SendKey('CTRL', 'c')) -- copy vim selection to system clipboard
 end

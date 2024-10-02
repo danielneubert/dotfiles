@@ -45,12 +45,9 @@ vim.keymap.set('n', '<M-l>', '<C-w>l')                                          
 vim.keymap.set('n', '<M-j>', '<C-w>j')                                               -- move cursor next split
 vim.keymap.set('n', '<M-k>', '<C-w>k')                                               -- move cursor prev split
 
-vim.keymap.set('n', '<leader>th', '<cmd>bpre<cr>')
-vim.keymap.set('n', '<leader>tl', '<cmd>bnext<cr>')
-vim.keymap.set('n', '<leader>tw', '<cmd>bd!<cr>')
-vim.keymap.set('n', '<C-h>', '<cmd>bpre<cr>')
-vim.keymap.set('n', '<C-l>', '<cmd>bnext<cr>')
-vim.keymap.set('n', '<C-w>', '<cmd>bd!<cr>')
+vim.keymap.set('n', '<C-h>', '<cmd>BufferPrevious<cr>')
+vim.keymap.set('n', '<C-l>', '<cmd>BufferNext<cr>')
+vim.keymap.set('n', '<C-w>', '<cmd>BufferClose!<cr>')
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 

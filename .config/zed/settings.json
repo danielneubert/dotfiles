@@ -30,6 +30,11 @@
     "button": false
   },
   "assistant": {
+    "default_model": {
+      "provider": "openai",
+      "model": "gpt-4o"
+    },
+    "version": "2",
     "button": false
   },
   "show_whitespaces": "selection",

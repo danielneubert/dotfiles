@@ -2,11 +2,11 @@ local wezterm = require 'wezterm'
 
 -- Color scheme based on time of day
 local function get_colors()
-  local colorBackground = '#24283b'
-  local colorActiveFg = '#1f2335'
-  local colorActiveBg = '#7aa2f7'
-  local colorOthersFg = '#c0caf5'
-  local colorOthersBg = '#414868'
+  local colorBackground = '#000000'
+  local colorActiveFg = '#7dcfff'
+  local colorActiveBg = '#1a1b26'
+  local colorOthersFg = '#737aa2'
+  local colorOthersBg = '#000000'
 
   return {
     cursor_fg = 'black',
@@ -52,70 +52,34 @@ function SetupTabbar(config)
 end
 
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
-  local label = ''
   local path = tab.active_pane.current_working_dir
   local process = string.gsub(tab.active_pane.foreground_process_name, '(.*[/\\])(.*)', '%2')
-  local prefix = '[]'
 
-  if path ~= nil then
-    path = path.path
-
-    if path ~= nil then
-      path = path:gsub('/Users/' .. os.getenv 'USER' .. '/', '~/')
-    end
-  end
-
-  prefix = '[' .. (tab.tab_index + 1)
+  local labels = {
+    [0] = "󰎦 ",
+    [1] = "󰎩 ",
+    [2] = "󰎬 ",
+    [3] = "󰎮 ",
+    [4] = "󰎰 ",
+    [5] = "󰎵 ",
+    [6] = "󰎸 ",
+    [7] = "󰎻 ",
+    [8] = "󰎾 "
+  }
 
   if process ~= nil and #process > 0 then
-    if process == 'ssh' then
-      path = '~~'
-    end
-
     if process == 'fish' then
       process = nil
     end
-
-    -- if process ~= nil then
-    --   prefix = prefix .. '|' .. process
-    -- end
   end
 
-  prefix = prefix .. '] '
+  -- if tab.tab_index < 9, use the label otherwise add 1 and make it the laabel
+  local prefix = labels[tab.tab_index] or '󰲲 '
+  prefix = ' ' .. prefix .. ' '
 
-  if process ~= nil then
-    prefix = prefix .. process .. ' • '
+  if process == nil and path ~= nil then
+    return prefix .. path.path:match(".*/(.+)$") .. ' '
   end
 
-  if path ~= nil and #path > 0 then
-    label = prefix .. path .. ' '
-  else
-    label = prefix
-  end
-
-  -- for loop with value 3, 2 and 1
-  for i = 3, 1, -1 do
-    if #label > 40 then
-      local parts = {}
-
-      for part in path:gmatch '[^/]+/' do
-        local insertable = part:sub(1, i)
-
-        -- insertable end with / like "~/" remove the slash
-        if insertable:sub(-1) == '/' then
-          insertable = insertable
-        else
-          insertable = insertable .. '/'
-        end
-
-        if #insertable > 1 then
-          table.insert(parts, insertable)
-        end
-      end
-
-      label = prefix .. table.concat(parts) .. path:match '[^/]+$' .. ' '
-    end
-  end
-
-  return label
+  return prefix .. process .. ' '
 end)
