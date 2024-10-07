@@ -1,47 +1,43 @@
 local wezterm = require 'wezterm'
 
--- Color scheme based on time of day
 local function get_colors()
-  local colorBackground = '#000000'
-  local colorActiveFg = '#7dcfff'
-  local colorActiveBg = '#1a1b26'
-  local colorOthersFg = '#737aa2'
-  local colorOthersBg = '#000000'
+  local colorActiveBg = '#222436'
+  local colorActiveFg = '#86e1fc'
+  local colorOthersFg = '#636da6'
+  local colorSelectFg = '#c8d3f5'
 
   return {
     cursor_fg = 'black',
     cursor_bg = '#F00045',
     cursor_border = '#F00045',
 
-    selection_fg = colorActiveFg,
-    selection_bg = colorActiveBg,
+    selection_fg = colorSelectFg,
+    selection_bg = colorOthersFg,
 
     tab_bar = {
-      background = colorBackground,
+      background = 'black',
 
       active_tab = {
         fg_color = colorActiveFg,
         bg_color = colorActiveBg,
       },
 
-      -- Inactive tabs are the tabs that do not have focus
       inactive_tab = {
         fg_color = colorOthersFg,
-        bg_color = colorOthersBg,
+        bg_color = 'black',
       },
       inactive_tab_hover = {
         fg_color = colorOthersFg,
-        bg_color = colorOthersBg,
+        bg_color = 'black',
       },
 
-      -- The new tab button that let you create new tabs
       new_tab = {
-        fg_color = colorBackground,
-        bg_color = colorBackground,
+        fg_color = 'black',
+        bg_color = 'black',
       },
       new_tab_hover = {
-        fg_color = colorBackground,
-        bg_color = colorBackground,
+        fg_color = 'black',
+        bg_color = 'black',
       },
     },
   }

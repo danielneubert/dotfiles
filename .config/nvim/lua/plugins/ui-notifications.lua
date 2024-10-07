@@ -1,9 +1,4 @@
 return {
-    -- notification system
-    {
-        "rcarriga/nvim-notify",
-    },
-
     -- notifications & floating command bar
     {
         "folke/noice.nvim",
@@ -27,6 +22,8 @@ return {
                                 { find = 'lines >ed %d time' },
                                 { find = 'lines moved' },
                                 { find = 'lines indented' },
+                                { find = 'NvimTree' },
+                                { find = 'No code actions available' },
                             },
                         },
                         opts = { skip = true },

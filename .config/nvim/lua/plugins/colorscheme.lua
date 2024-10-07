@@ -52,22 +52,6 @@ return {
         end,
     },
 
-    -- cat colorscheme
-    {
-        'catppuccin/nvim',
-        priority = 1000,
-        config = function()
-            vim.api.nvim_create_user_command('Cat', function()
-                setColors('catppuccin', {
-                    flavour = "macchiato",
-                    styles = {
-                        comments = { "italic" },
-                    },
-                })
-            end, {})
-        end,
-    },
-
     -- dark colorscheme
     {
         'folke/tokyonight.nvim',
@@ -75,7 +59,7 @@ return {
         config = function()
             vim.api.nvim_create_user_command('Dark', function()
                 setColors('tokyonight', {
-                    style = "night",
+                    style = "moon",
                     styles = {
                         comments = { italic = true },
                     },

@@ -8,6 +8,7 @@
 .config/fish/functions
 .config/fish/configs/user.fish
 .config/fish/fish_variables
+.config/fish/env.fish
 
 # Karabiner Elements
 .config/karabiner/automatic_backups

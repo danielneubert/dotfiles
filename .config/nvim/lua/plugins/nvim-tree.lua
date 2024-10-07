@@ -3,6 +3,9 @@ return {
         'nvim-tree/nvim-tree.lua',
         priority = 1000,
         opts = {
+            hijack_directories = {
+                enable = false,
+            },
             view = {
                 cursorline = true,
                 number = false,

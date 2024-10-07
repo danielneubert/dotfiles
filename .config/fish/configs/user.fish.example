@@ -1,9 +1,15 @@
-# PHP artisan
-alias artisan='php artisan'
+# Change to dir and "refresh" the output
+function ..cd
+    cd $argv[1]
+    clear
+    la
+end
 
-# Cryptomator
-alias ..work='cd ~/Library/Application\ Support/Cryptomator/mnt'
+# Open pwd in finder
+alias finder='open .'
 
-# Edit your evil master project
-alias ..evil = 'cd ~/Projects/Evil && vim && cd ~'
+# Go "back" to the HOME dir
+alias ..='..cd ~'
 
+# Quick access to dirs
+alias ..p='..cd ~/Projects'

@@ -25,5 +25,5 @@ function SetupAppearance(config)
   }
 
   -- Colors
-  config.color_scheme = 'Tokyo Night'
+  config.color_scheme = 'Tokyo Night Moon'
 end

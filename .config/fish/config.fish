@@ -2,25 +2,23 @@
 alias la='lsd -l -A --tree --depth 1 --date relative --group-dirs first --blocks "name,size,date"'
 alias vim='nvim'
 
-# After changing the directory use the `la` alias to display its contents
+# Execute the `la` command when changing directories
 function l --on-variable PWD
-    la
+    if test "$pwd_silent_change" != "1"
+        la
+    end
 end
 
-set -U fish_user_paths /usr/local/bin /opt/homebrew/sbin /opt/homebrew/bin $HOME/.composer/vendor/bin $fisher_user_paths $HOME/go/bin
+# Add the user paths to the PATH
+set -U fish_user_paths \
+    /usr/local/bin \
+    /opt/homebrew/sbin \
+    /opt/homebrew/bin \
+    $HOME/.composer/vendor/bin \
+    $HOME/go/bin \
+    $fisher_user_paths
 
-# Make the .config accessible everywhere
-alias ..c='cd ~/.dotfiles/.config && vim'
-
-# Search command to find files in the current directory
-function search
-    find ./ -type f 2>/dev/null | grep -iF $argv
-end
-
-# Search command to find files in the current directory
-function searchin
-    grep -r $argv .
-end
+builtin source $HOME/.config/fish/env.fish
 
 # Load all files within the configs directory
 for config_file in (find $HOME/.config/fish/configs -path "*/*.fish" -depth 1 -type f)
