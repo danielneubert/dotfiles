@@ -34,7 +34,8 @@ return {
             },
 
             note_id_func = function(title)
-                return title
+                return vim.fn.strftime("%Y") ..
+                "/" .. vim.fn.strftime("%m") .. "/" .. vim.fn.strftime("%y-%m") .. " " .. title
             end,
 
             disable_frontmatter = true,

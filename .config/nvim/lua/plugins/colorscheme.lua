@@ -15,7 +15,7 @@ local function setColors(name, config, schemeName)
         vim.api.nvim_set_hl(0, name, { fg = fg, bg = bg or fg })
     end
 
-    local color_bg = get_color('Normal', 'bg')
+    local color_bg = get_color('BufferCurrentSign', 'bg')
     local color_bg_dark = "#000000"
     local color_fg = get_color('Normal', 'fg')
     local color_fg_dark = get_color('Comment', 'fg')
@@ -66,7 +66,21 @@ return {
                 })
             end, {})
 
-            vim.cmd('Dark')
+            vim.api.nvim_create_user_command('DarkT', function()
+                setColors('tokyonight', {
+                    style = "moon",
+                    transparent = true,
+                    styles = {
+                        comments = { italic = true },
+                    },
+                })
+            end, {})
+
+            if vim.fn.getcwd() == vim.fn.getenv("OBSIDIAN_VAULT") then
+                vim.cmd('DarkT')
+            else
+                vim.cmd('Dark')
+            end
         end,
     },
 }

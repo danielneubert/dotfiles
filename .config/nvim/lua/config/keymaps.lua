@@ -27,7 +27,10 @@ end)
 
 vim.keymap.set('n', '<leader>od', '<cmd>ObsidianToday<cr>', { desc = '[O]bsidian [D]aily' })
 vim.keymap.set('n', '<leader>on', '<cmd>ObsidianNew<cr>', { desc = '[O]bsidian [N]ew note' })
-vim.keymap.set('n', '<leader>or', '<cmd>ObsidianRename<cr>', { desc = '[O]bsidian [R]ename current note' })
+vim.keymap.set('n', '<leader>or', '<cmd>ObsidianRename<cr>', { desc = '[O]bsidian [R]ename Current Note' })
+vim.keymap.set('n', '<leader>og', '<cmd>ObsidianFollowLink<cr>', { desc = '[O]bsidian [G]oto Linked Object' })
+vim.keymap.set('n', '<leader>ov', '<cmd>ObsidianFollowLink vsplit<cr>',
+    { desc = '[O]bsidian [V]ertical Goto Linked Object' })
 
 vim.keymap.set('n', '<leader>fe', '<cmd>NvimTreeToggle<cr>', { desc = '[F]ind in [E]xplorer' })
 vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind with [T]odos' })

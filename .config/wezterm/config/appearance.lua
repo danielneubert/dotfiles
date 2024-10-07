@@ -15,7 +15,7 @@ function SetupAppearance(config)
   config.macos_window_background_blur = 100
   config.native_macos_fullscreen_mode = true
   config.scrollback_lines = 5000
-  config.window_background_opacity = 1
+  config.window_background_opacity = 0.85
   config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
   config.window_padding = {
     top = 0,
