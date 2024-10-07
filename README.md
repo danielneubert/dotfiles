@@ -23,9 +23,9 @@ git clone https://github.com/danielneubert/dotfiles.git ~/.dotfiles
 
 ## Keyboard Setup
 
-As it seems you can now remap the Caps-Lock to ESC, a shortcut I used for over 1,5 years now. This makes Karabiner finally obsolte for me.
+I found out that the `[⇧] Caps Lock` key can be mapped directly to the `[⎋] ESC` key with macOS. This makes the dependency on Karabiner obsolete for my setup.
 
-To Setup:
+Setup:
 
 ![](assets/capslock-keyboard.gif)
 
@@ -33,7 +33,7 @@ To Setup:
 
 ### Logi Options+
 
-Since my concerns about the imminent removal of the installer have been disproved, I have also found official release notes and download page for the offline installer. Since the offline version is not listed on homebrew, the download via the website is probably the only option for the time being.
+My concerns about the imminent removal of the offline installer for Logi Options+ have fortunately been put to rest. Logitech itself maintains a page with official release notes and a download page for the offline installer. Since the offline version is currently not listed on Homebrew, the download via the website is probably the only option for the time being.
 
 - [Download Page Logi Options+ (Offline)](https://support.logi.com/hc/en-us/articles/11570501236119-Logitech-Options-offline-installer)
 - [Release-Notes Logi Options+ (Offline)](https://support.logi.com/hc/en-us/articles/17032567939351-Logi-Options-Offline-Installer-Release-Notes)
