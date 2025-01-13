@@ -1,29 +1,32 @@
 function SetupAppearance(config)
-  -- Set the cursor shape & config
+  -- Colors
+  config.color_scheme = 'Night Owl (Gogh)'
+
+  -- Set the cursor colors
+  config.colors = {
+    cursor_fg = '#000000',
+    cursor_bg = '#ff375f',
+  }
+
+  -- Cursor
   config.cursor_blink_ease_in = 'Constant'
   config.cursor_blink_ease_out = 'Constant'
-  config.cursor_blink_rate = 250
-  config.default_cursor_style = 'SteadyBlock'
+  config.cursor_blink_rate = 500
+  config.cursor_thickness = '0.075cell'
+  config.default_cursor_style = 'BlinkingBlock'
 
-  -- Tab Bar
-  config.enable_tab_bar = true
-  config.tab_bar_at_bottom = true
-  config.tab_max_width = 50
-  config.use_fancy_tab_bar = false
+  -- Disable Tabs
+  config.enable_tab_bar = false
 
-  -- Style the window
-  config.macos_window_background_blur = 100
+  -- Design
+  config.max_fps = 120
+  config.scrollback_lines = 1000
   config.native_macos_fullscreen_mode = true
-  config.scrollback_lines = 5000
-  config.window_background_opacity = 0.85
   config.window_decorations = 'TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW'
   config.window_padding = {
-    top = 0,
-    left = 0,
+    top = 8,
+    left = 8,
     right = 0,
     bottom = 0,
   }
-
-  -- Colors
-  config.color_scheme = 'Tokyo Night Moon'
 end
