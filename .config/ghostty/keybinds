@@ -1,0 +1,64 @@
+# ====================
+# Ghostty
+# ====================
+
+keybind = super+?=unbind
+keybind = super+h=unbind
+keybind = super+shift+r=reload_config
+
+
+
+# ====================
+# TMUX
+# ====================
+
+# [^]+[a] > [i] | Open Settings
+keybind = super+,=text:\x01i
+
+# [^]+[a] > [o] | Open Obsidian
+keybind = super+o=text:\x01o
+
+# [^]+[a] > [t] | New Tab
+keybind = super+t=text:\x01t
+
+# [^]+[a] > [w] | Close Tab
+keybind = super+w=text:\x01w
+
+# [^]+[a] > [1] | Select Tab 1
+keybind = super+1=text:\x011
+keybind = super+2=text:\x012
+keybind = super+3=text:\x013
+keybind = super+4=text:\x014
+keybind = super+5=text:\x015
+
+
+
+# ====================
+# VIM
+# ====================
+
+# [^]+[s]       | Save with Formatting
+keybind = super+s=text:\x13
+
+# [^]+[e]       | File Explorer
+keybind = super+e=text:\x05
+
+# [^]+[p]       | Search File Bar
+keybind = super+l=text:\x10
+
+# [^]+[w] > [H] | Change Tab-Focus
+keybind = ctrl+shift+h=text:\x17H
+keybind = ctrl+shift+l=text:\x17L
+# [^]+[w] > [W] | Close Tab
+keybind = ctrl+shift+w=text:\x17W
+
+# [^]+[c]       | Copy to Clipboard
+keybind = super+shift+c=text:\x03
+# [^]+[g]       | Select All
+keybind = super+a=text:\x07
+
+# [^]+[w] > [h] | Move Cursor
+keybind = ctrl+h=text:\x17h
+keybind = ctrl+j=text:\x17j
+keybind = ctrl+k=text:\x17k
+keybind = ctrl+l=text:\x17l

@@ -1,0 +1,5 @@
+config-file = appearance
+config-file = fonts
+config-file = keybinds
+
+command = "/opt/homebrew/bin/tmux"
