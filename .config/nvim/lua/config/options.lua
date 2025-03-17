@@ -1,13 +1,16 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
 vim.opt.mouse = 'a'
 vim.opt.showmode = false
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 100
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 1000
 vim.opt.list = true
 vim.opt.listchars = { tab = '⇥ ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
@@ -15,7 +18,7 @@ vim.g.disable_autoformat = true
 
 -- Cursor
 vim.opt.scrolloff = 8
-vim.opt.guicursor = ''
+-- vim.opt.guicursor = ''
 vim.opt.cursorline = true
 vim.opt.colorcolumn = '80'
 
@@ -25,7 +28,7 @@ vim.opt.titlestring = "vim %{substitute(getcwd(), $HOME, '~', '')}"
 
 -- Numbers
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 -- Indentation
 vim.opt.tabstop = 4
@@ -69,19 +72,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
     callback = function()
         vim.highlight.on_yank()
-    end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "markdown" },
-    callback = function()
-        vim.opt_local.textwidth = 80
-        vim.opt_local.wrap = true
-        vim.opt_local.tabstop = 2
-        vim.opt_local.softtabstop = 2
-        vim.opt_local.shiftwidth = 2
-        vim.opt_local.expandtab = true
-        vim.opt_local.conceallevel = 2
     end,
 })
 

@@ -7,7 +7,10 @@ local on_attach = function(_, bufnr)
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
 
+    vim.api.nvim_clear_autocmds({ buffer = bufnr, event = "BufWritePre" })
+
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+
     nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
@@ -20,35 +23,28 @@ local on_attach = function(_, bufnr)
     end, { desc = 'Format current buffer with LSP' })
 end
 
-return {
 
-    { -- LSP Configuration & Plugins
-        'neovim/nvim-lspconfig',
+
+return {
+    {
+        "neovim/nvim-lspconfig",
         dependencies = {
-            -- Automatically install LSPs to stdpath for neovim
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-
-            -- Useful status updates for LSP
-            'j-hui/fidget.nvim',
         },
-
         config = function()
-            -- Setup mason so it can manage external tooling
             require('mason').setup()
 
             -- Enable the following language servers
-            -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
             local servers = {
                 'docker_compose_language_service',
                 'dockerls',
                 'gopls',
                 'html',
                 'lua_ls',
-                'phpactor',
-                'svelte',
+                -- 'phpactor',
+                'intelephense',
                 'tailwindcss',
-                'ts_ls',
                 'volar',
                 'yamlls',
             }
@@ -60,15 +56,10 @@ return {
                     function(server_name)
                         require('lspconfig')[server_name].setup {
                             on_attach = on_attach,
-                            capabilities = capabilities,
                         }
                     end,
                 }
             }
-
-            -- nvim-cmp supports additional completion capabilities
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
             -- go
             require('lspconfig').gopls.setup({
@@ -94,7 +85,6 @@ return {
 
             require('lspconfig').lua_ls.setup {
                 on_attach = on_attach,
-                capabilities = capabilities,
                 settings = {
                     Lua = {
                         runtime = {
@@ -112,191 +102,48 @@ return {
                     },
                 },
             }
+            --
+            -- -- php
+            -- require('lspconfig').phpactor.setup {
+            --     on_attach = on_attach,
+            --     capabilities = vim.lsp.protocol.make_client_capabilities(),
+            --     filetypes = {
+            --         "php",
+            --     },
+            -- }
 
             -- php
-            require('lspconfig').phpactor.setup {
+            require('lspconfig').intelephense.setup {
                 on_attach = on_attach,
-                capabilities = capabilities,
                 filetypes = {
                     "php",
-                },
-            }
-
-            -- svelte
-            -- Additional command: npm install -g svelte-language-server
-            require('lspconfig').svelte.setup {
-                on_attach = function(client, bufnr)
-                    vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP" }, {
-                        pattern = { "*.js", "*.ts" },
-                        callback = function(ctx)
-                            if client.name == "svelte" then
-                                client.notify("$/onDidChangeTsOrJsFile", {
-                                    uri = ctx.file,
-                                    changes = {
-                                        { text = table.concat(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false), "\n") },
-                                    },
-                                })
-                            end
-                        end,
-                        group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
-                    })
-                end,
-                capabilities = capabilities,
-                filetypes = {
-                    'typescript',
-                    'javascript',
-                    'svelte',
-                    'html',
                 },
             }
 
             -- tailwind
             require('lspconfig').tailwindcss.setup {
                 on_attach = on_attach,
-                capabilities = capabilities,
                 filetypes = {
                     "html",
                     "javascript",
                     "php",
                     "typescript",
                     "vue",
-                    "svelte",
                 },
             }
 
             -- vue
             require('lspconfig').volar.setup({
                 on_attach = on_attach,
-                capabilities = capabilities,
                 filetypes = {
                     "javascript",
                     "typescript",
                     "vue",
                 },
-            })
-            require('lspconfig').ts_ls.setup {
                 init_options = {
-                    plugins = {
-                        {
-                            name = "@vue/typescript-plugin",
-                            location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
-                            languages = { "javascript", "typescript", "vue" },
-                        },
+                    vue = {
+                        hybridMode = false,
                     },
-                },
-                filetypes = {
-                    "javascript",
-                    "typescript",
-                    "vue",
-                },
-            }
-        end,
-    },
-
-    { -- Autocompletion
-        'hrsh7th/nvim-cmp',
-        event = 'InsertEnter',
-        dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'L3MON4D3/LuaSnip',
-            'saadparwaiz1/cmp_luasnip',
-        },
-        config = function()
-            -- nvim-cmp setup
-            local cmp = require 'cmp'
-            local luasnip = require 'luasnip'
-
-            cmp.setup {
-                view = {
-                    entries = 'native',
-                },
-                snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end,
-                },
-                mapping = cmp.mapping.preset.insert {
-                    ['<M-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-                    ['<M-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-                    ['<Tab>'] = cmp.mapping.confirm { select = true },
-                },
-                sources = {
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
-                    { name = 'neorg' },
-                },
-            }
-        end,
-    },
-
-    { -- Highlight, edit, and navigate code
-        'nvim-treesitter/nvim-treesitter',
-        build = function()
-            pcall(require('nvim-treesitter.install').update { with_sync = true })
-        end,
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter-textobjects',
-        },
-    },
-
-    { -- Use Mason formatters
-        'stevearc/conform.nvim',
-        event = { 'BufWritePre' },
-        opts = {
-            formatters_by_ft = {
-                go = { 'gofmt', 'goimports' },
-                javascript = { { 'prettierd', 'prettier' } },
-                json = { 'jq' },
-                lua = { 'stylua' },
-                php = { 'php_cs_fixer' },
-                svelte = { 'svelte' },
-                ['*'] = { 'trim_newlines', 'trim_whitespace' },
-            },
-        },
-    },
-
-    {
-        'nvim-treesitter/nvim-treesitter',
-        priority = 1000,
-        build = ':TSUpdate',
-        config = function()
-            require('nvim-treesitter.configs').setup {
-                ensure_installed = {
-                    'bash',
-                    'c',
-                    'javascript',
-                    'jsdoc',
-                    'lua',
-                    'rust',
-                    'svelte',
-                    'typescript',
-                    'vimdoc',
-                },
-                sync_install = false,
-                auto_install = true,
-                indent = {
-                    enable = true,
-                },
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = { 'markdown' },
-                },
-            }
-
-            local parser = require("nvim-treesitter.parsers").get_parser_configs()
-
-            parser.blade = {
-                install_info = {
-                    url = "https://github.com/EmranMR/tree-sitter-blade",
-                    files = { "src/parser.c" },
-                    branch = "main",
-                },
-                filetype = "blade",
-            }
-
-            vim.filetype.add({
-                pattern = {
-                    [".*%.blade%.php"] = "blade",
                 },
             })
         end,

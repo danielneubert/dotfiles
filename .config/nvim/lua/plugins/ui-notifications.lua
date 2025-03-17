@@ -1,10 +1,8 @@
 return {
-    -- notifications & floating command bar
     {
         "folke/noice.nvim",
         config = function()
             require('noice').setup {
-                -- add any options here
                 routes = {
                     {
                         filter = {

@@ -1,23 +1,37 @@
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
+keymap.set("i", "<Esc>", function()
+    -- hide the completion menu
+    require('blink.cmp').hide()
+
+    -- stop the completion
+    vim.cmd("stopinsert")
+end, opts)
+
+-- Fix indentation behavior
 keymap.set('n', '<', '<<<ESC>', opts)
 keymap.set('n', '>', '>><ESC>', opts)
-
 keymap.set('v', '<', '<gv', opts)
 keymap.set('v', '>', '>gv', opts)
 
-vim.keymap.set({ 'n', 'v' }, 'j', 'gj', { silent = true })
-vim.keymap.set({ 'n', 'v' }, 'k', 'gk', { silent = true })
+-- Fix handling wrapped lines
+keymap.set({ 'n', 'v' }, 'j', 'gj', { silent = true })
+keymap.set({ 'n', 'v' }, 'k', 'gk', { silent = true })
 
-vim.keymap.set('v', 'J', ":m '>+1<cr>gv=gv", { silent = true })
-vim.keymap.set('v', 'K', ":m '<-2<cr>gv=gv", { silent = true })
-vim.keymap.set('n', 'x', '"_x')
+-- Handy helpers
+keymap.set('v', 'J', ":m '>+1<cr>gv=gv", { silent = true })
+keymap.set('v', 'K', ":m '<-2<cr>gv=gv", { silent = true })
+keymap.set('n', 'x', '"_x')
 
-vim.keymap.set('v', '<C-c>', '"*y')
+-- Copy to system clipboard, Mapped to CMD-C
+keymap.set('v', '<C-c>', '"*y')
+
+-- Ensure there are no wrong spaces in files
 vim.api.nvim_set_keymap('i', ' ', '<Space>', { noremap = true })
 
-vim.keymap.set({ 'n', 'v' }, '<C-s>', function()
+-- Save, Mapped to CMD-s
+keymap.set({ 'n', 'v' }, '<C-s>', function()
     if vim.fn.exists(':Format') == 2 then
         vim.cmd 'Format'
     end
@@ -25,40 +39,36 @@ vim.keymap.set({ 'n', 'v' }, '<C-s>', function()
     vim.cmd 'w!'
 end)
 
-vim.keymap.set('n', '<leader>od', '<cmd>ObsidianToday<cr>', { desc = '[O]bsidian [D]aily' })
-vim.keymap.set('n', '<leader>on', '<cmd>ObsidianNew<cr>', { desc = '[O]bsidian [N]ew note' })
-vim.keymap.set('n', '<leader>or', '<cmd>ObsidianRename<cr>', { desc = '[O]bsidian [R]ename Current Note' })
-vim.keymap.set('n', '<leader>og', '<cmd>ObsidianFollowLink<cr>', { desc = '[O]bsidian [G]oto Linked Object' })
-vim.keymap.set('n', '<leader>ov', '<cmd>ObsidianFollowLink vsplit<cr>',
-    { desc = '[O]bsidian [V]ertical Goto Linked Object' })
+-- [gd] will be overwritten by other LSPs if not in Obsidian folder
+keymap.set('n', 'gd', '<cmd>ObsidianFollowLink<cr>', { desc = 'Obsidian [G]o[T]o Link' })
 
-vim.keymap.set('n', '<leader>fe', '<cmd>NvimTreeToggle<cr>', { desc = '[F]ind in [E]xplorer' })
-vim.keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind with [T]odos' })
-vim.keymap.set('n', '<C-e>', '<cmd>NvimTreeToggle<cr>') -- open the nvim tree (mapped in iTerm to CMD-E)
+-- File handling
+-- keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind with [T]odos' })
+-- keymap.set('n', '<C-e>', '<cmd>NvimTreeToggle<cr>', { desc = 'Filetree' }) -- Mapped to CMD-e
+keymap.set('n', '<C-e>', '<cmd>Oil<cr>', { desc = 'Filetree' }) -- Mapped to CMD-e
 
-vim.keymap.set({ 'n', 'v' }, '<C-g>', 'ggVG', { noremap = true, silent = true })
+-- Obsidian
+keymap.set('n', '<C-o>d', '<cmd>ObsidianToday<cr>', { desc = '[O]bsidian [D]aily' })
+keymap.set('n', '<C-o>n', '<cmd>ObsidianNew<cr>', { desc = '[O]bsidian [N]ew note' })
+keymap.set('n', '<C-o>r', '<cmd>ObsidianRename<cr>', { desc = '[O]bsidian [R]ename Current Note' })
 
-vim.keymap.set('n', '<leader>sv', '<C-w>v', { desc = '[S]plit [V]ertical (right)' }) -- split vertical
-vim.keymap.set('n', '<leader>sc', '<C-w>s', { desc = '[S]plit Horizontal (below)' }) -- split vertical
-vim.keymap.set('n', '<leader>se', '<C-w>=', { desc = '[S]plit [E]qual Width' })      -- split vertical
-vim.keymap.set('n', '<leader>sw', '<cmd>close<cr>', { desc = 'Close [S]plit' })      -- close active split
-vim.keymap.set('n', '<leader>sh', '<C-w>h', { desc = 'Go left [S]plit' })            -- move cursor next split
-vim.keymap.set('n', '<leader>sj', '<C-w>j', { desc = 'Go lower [S]plit' })           -- move cursor next split
-vim.keymap.set('n', '<leader>sk', '<C-w>k', { desc = 'Go upper [S]plit' })           -- move cursor prev split
-vim.keymap.set('n', '<leader>sl', '<C-w>l', { desc = 'Go right [S]plit' })           -- move cursor prev split
-vim.keymap.set('n', '<M-w>', '<cmd>close<cr>')                                       -- close active split
-vim.keymap.set('n', '<M-h>', '<C-w>h')                                               -- move cursor next split
-vim.keymap.set('n', '<M-l>', '<C-w>l')                                               -- move cursor prev split
-vim.keymap.set('n', '<M-j>', '<C-w>j')                                               -- move cursor next split
-vim.keymap.set('n', '<M-k>', '<C-w>k')                                               -- move cursor prev split
+-- Select All
+keymap.set({ 'n', 'v' }, '<C-g>', 'ggVG', { noremap = true, silent = true })
 
-vim.keymap.set('n', '<C-h>', '<cmd>BufferPrevious<cr>')
-vim.keymap.set('n', '<C-l>', '<cmd>BufferNext<cr>')
-vim.keymap.set('n', '<C-w>', '<cmd>BufferClose!<cr>')
+-- Remove Search hl on ESC
+keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- Diagnostic
+keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show [E]rror messages' })
+keymap.set('n', '<leader>ep', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious [E]rror message' })
+keymap.set('n', '<leader>en', vim.diagnostic.goto_next, { desc = 'Go to [N]ext [E]rror message' })
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>en', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', '<leader>ep', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+-- Splits
+keymap.set('n', '<C-w>c', '<cmd>split<cr>', { desc = 'Split Horizontal' })
+keymap.set('n', '<C-w>e', '<C-w>=', { desc = 'Split [E]qual Width' })
+keymap.set('n', '<C-w>w', '<cmd>close<cr>', { desc = 'Close Split' })
+
+-- Tabs
+keymap.set('n', '<C-w>H', '<cmd>BufferPrevious<cr>', { desc = 'Tab Right' })
+keymap.set('n', '<C-w>L', '<cmd>BufferNext<cr>', { desc = 'Tab Left' })
+keymap.set('n', '<C-w>W', '<cmd>BufferClose!<cr>', { desc = 'Close Tab' })

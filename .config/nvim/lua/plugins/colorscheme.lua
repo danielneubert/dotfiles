@@ -1,86 +1,71 @@
-local function setColors(name, config, schemeName)
-    config = config or {}
-    schemeName = schemeName or name
+local function setColors(theme, config, scheme)
+    if theme ~= nil then
+        require(theme).setup(config)
 
-    vim.cmd.background = 'dark'
-    require(name).setup(config)
-    vim.cmd.colorscheme(schemeName)
-
-    local get_color = function(name, variant)
-        local colors = vim.api.nvim_get_hl(0, { name = name })
-        return (colors[variant] ~= nil) and ('#%06x'):format(colors[variant]) or '#ff00ff'
+        if config ~= nil then
+            require(theme).setup(config)
+        else
+            require(theme).setup({})
+        end
     end
 
-    local set_color = function(name, fg, bg)
-        vim.api.nvim_set_hl(0, name, { fg = fg, bg = bg or fg })
+    vim.cmd.background = "dark"
+    vim.cmd.colorscheme(scheme or theme)
+
+    local updateBarbar = function(defines)
+        local g = function(hl, name)
+            local color = vim.api.nvim_get_hl(0, { name = name })[hl]
+            if color then return ("#%06x"):format(color) end
+        end
+        for _, group in pairs(defines) do
+            for _, buffer in ipairs(group.buffers) do
+                vim.api.nvim_set_hl(0, "Buffer" .. buffer, {
+                    fg = g("fg", group.hl.fg), bg = g("bg", group.hl.bg)
+                })
+            end
+        end
     end
 
-    local color_bg = get_color('BufferCurrentSign', 'bg')
-    local color_bg_dark = "#000000"
-    local color_fg = get_color('Normal', 'fg')
-    local color_fg_dark = get_color('Comment', 'fg')
-
-    set_color("BufferTabpageFill", color_bg_dark)
-    set_color("BufferTabpages", color_bg_dark)
-    set_color("BufferTabpagesSep", color_bg_dark)
-    set_color("BufferCurrent", color_fg, color_bg)
-    set_color("BufferCurrentMod", color_fg, color_bg)
-    set_color("BufferCurrentSign", color_fg_dark, color_bg)
-    set_color("BufferInactive", color_fg_dark, color_bg_dark)
-    set_color("BufferInactiveMod", color_fg, color_bg_dark)
-    set_color("BufferInactiveSign", color_fg_dark, color_bg_dark)
-    set_color("BufferVisible", color_fg_dark, color_bg_dark)
-    set_color("BufferVisibleMod", color_fg, color_bg_dark)
-    set_color("BufferVisibleSign", color_fg_dark, color_bg_dark)
+    updateBarbar({ {
+        hl = { fg = "Normal" },
+        buffers = { "Tabpagse", "TabpagesSep", "TabpageFill" },
+    }, {
+        hl = { fg = "Normal", bg = "CursorLine" },
+        buffers = { "Current", "CurrentMod", "CurrentSign" },
+    }, {
+        hl = { fg = "Comment", bg = "CursorLine" },
+        buffers = { "VisibleMod", "InactiveMod" },
+    }, {
+        hl = { fg = "Comment" },
+        buffers = { "Visible", "Inactive", "VisibleSign", "InactiveSign" },
+    } })
 end
 
 return {
-    -- day colorscheme
     {
-        'projekt0n/github-nvim-theme',
+        "projekt0n/github-nvim-theme",
         priority = 1000,
         config = function()
-            vim.api.nvim_create_user_command('Day', function()
-                setColors('github-theme', {
+            vim.api.nvim_create_user_command("Day", function()
+                setColors("github-theme", {
                     options = {
                         styles = {
-                            comments = 'italic',
+                            comments = "italic",
                         },
                     },
-                }, 'github_light_default')
+                }, "github_light_default")
             end, {})
         end,
     },
-
-    -- dark colorscheme
     {
-        'folke/tokyonight.nvim',
+        "oxfist/night-owl.nvim",
         priority = 1000,
         config = function()
-            vim.api.nvim_create_user_command('Dark', function()
-                setColors('tokyonight', {
-                    style = "moon",
-                    styles = {
-                        comments = { italic = true },
-                    },
-                })
+            vim.api.nvim_create_user_command("Owl", function()
+                setColors("night-owl")
             end, {})
 
-            vim.api.nvim_create_user_command('DarkT', function()
-                setColors('tokyonight', {
-                    style = "moon",
-                    transparent = true,
-                    styles = {
-                        comments = { italic = true },
-                    },
-                })
-            end, {})
-
-            if vim.fn.getcwd() == vim.fn.getenv("OBSIDIAN_VAULT") then
-                vim.cmd('DarkT')
-            else
-                vim.cmd('Dark')
-            end
+            vim.cmd("Owl")
         end,
     },
 }

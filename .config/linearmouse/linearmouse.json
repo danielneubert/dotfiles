@@ -1,12 +1,13 @@
 {
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
   "schemes" : [
     {
       "if" : {
         "device" : {
-          "productName" : "USB Receiver",
-          "vendorID" : "0x46d",
           "category" : "mouse",
-          "productID" : "0xc547"
+          "vendorID" : "0x46d",
+          "productID" : "0xc547",
+          "productName" : "USB Receiver"
         }
       },
       "pointer" : {
@@ -20,16 +21,15 @@
         "device" : {
           "serialNumber" : "000000000000",
           "productName" : "Razer Viper V2 Pro",
-          "productID" : "0xa6",
+          "category" : "mouse",
           "vendorID" : "0x1532",
-          "category" : "mouse"
+          "productID" : "0xa6"
         }
       },
       "pointer" : {
         "disableAcceleration" : true,
-        "acceleration" : 1.325
+        "acceleration" : 1.335
       }
     }
-  ],
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+  ]
 }
