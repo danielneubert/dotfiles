@@ -34,4 +34,5 @@ end
 set fish_greeting
 
 # Set the shell prompt
+set STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 starship init fish | source

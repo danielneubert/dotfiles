@@ -1,14 +1,6 @@
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
-keymap.set("i", "<Esc>", function()
-    -- hide the completion menu
-    require('blink.cmp').hide()
-
-    -- stop the completion
-    vim.cmd("stopinsert")
-end, opts)
-
 -- Fix indentation behavior
 keymap.set('n', '<', '<<<ESC>', opts)
 keymap.set('n', '>', '>><ESC>', opts)
@@ -30,27 +22,17 @@ keymap.set('v', '<C-c>', '"*y')
 -- Ensure there are no wrong spaces in files
 vim.api.nvim_set_keymap('i', ' ', '<Space>', { noremap = true })
 
--- Save, Mapped to CMD-s
+-- CMD+s = Format and save
 keymap.set({ 'n', 'v' }, '<C-s>', function()
-    if vim.fn.exists(':Format') == 2 then
-        vim.cmd 'Format'
-    end
-    require('conform').format { async = false, lsp_fallback = true }
-    vim.cmd 'w!'
+  if vim.fn.exists ':Format' == 2 then
+    vim.cmd 'Format'
+  end
+  require('conform').format { async = false, lsp_fallback = true }
+  vim.cmd 'w!'
 end)
 
--- [gd] will be overwritten by other LSPs if not in Obsidian folder
-keymap.set('n', 'gd', '<cmd>ObsidianFollowLink<cr>', { desc = 'Obsidian [G]o[T]o Link' })
-
--- File handling
--- keymap.set('n', '<leader>ft', '<cmd>TodoTelescope<cr>', { desc = '[F]ind with [T]odos' })
--- keymap.set('n', '<C-e>', '<cmd>NvimTreeToggle<cr>', { desc = 'Filetree' }) -- Mapped to CMD-e
-keymap.set('n', '<C-e>', '<cmd>Oil<cr>', { desc = 'Filetree' }) -- Mapped to CMD-e
-
--- Obsidian
-keymap.set('n', '<C-o>d', '<cmd>ObsidianToday<cr>', { desc = '[O]bsidian [D]aily' })
-keymap.set('n', '<C-o>n', '<cmd>ObsidianNew<cr>', { desc = '[O]bsidian [N]ew note' })
-keymap.set('n', '<C-o>r', '<cmd>ObsidianRename<cr>', { desc = '[O]bsidian [R]ename Current Note' })
+-- Open file explorer
+keymap.set('n', '<C-e>', '<cmd>Oil<cr>', { desc = 'Filetree' })
 
 -- Select All
 keymap.set({ 'n', 'v' }, '<C-g>', 'ggVG', { noremap = true, silent = true })
@@ -60,8 +42,11 @@ keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic
 keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show [E]rror messages' })
-keymap.set('n', '<leader>ep', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious [E]rror message' })
-keymap.set('n', '<leader>en', vim.diagnostic.goto_next, { desc = 'Go to [N]ext [E]rror message' })
+
+-- Obsidian
+keymap.set('n', '<C-o>d', '<cmd>ObsidianToday<cr>', { desc = '[O]bsidian [D]aily' })
+keymap.set('n', '<C-o>n', '<cmd>ObsidianNew<cr>', { desc = '[O]bsidian [N]ew note' })
+keymap.set('n', '<C-o>r', '<cmd>ObsidianRename<cr>', { desc = '[O]bsidian [R]ename Current Note' })
 
 -- Splits
 keymap.set('n', '<C-w>c', '<cmd>split<cr>', { desc = 'Split Horizontal' })

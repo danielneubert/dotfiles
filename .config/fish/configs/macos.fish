@@ -35,11 +35,11 @@ function update
 
     printf "%b" "$COLOR_YELLOW\e0[brew 🍻] Updating Packages ...\n$COLOR_RESET"
     brew update -q > /dev/null
-    brew upgrade --formula -q
-    brew upgrade --cask -q --greedy-auto-updates
+    brew upgrade --formula
+    brew upgrade --cask --greedy-auto-updates
 
     printf "%b" "$COLOR_YELLOW\e0[brew 🍻] Running clean up ...\n$COLOR_RESET"
-    brew link --overwrite node
+    brew unlink node && brew link node
     brew autoremove
     brew cleanup
 
