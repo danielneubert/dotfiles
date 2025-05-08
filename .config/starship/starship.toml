@@ -2,21 +2,34 @@ add_newline = true
 
 format = """\
   $directory\
-  $git_branch\
+  $git_branch$git_commit\
+  $cmd_duration\
   $line_break\
   $character\
   """
 
+[git_branch]
+symbol = ' '
+
+[git_commit]
+format = '[ $hash]($style) '
+style = 'bold purple'
+only_detached = false
+disabled = false
+
 [character]
 success_symbol = "[❱](bold green)"
-vimcmd_symbol = "[❱](bold green)"
-vimcmd_visual_symbol = "[❱](bold green)"
 error_symbol = "[❱](bold red)"
 
 [directory]
 truncation_length = 6
 truncate_to_repo = true
 disabled = false
+
+[cmd_duration]
+format = 'in [$duration]($style)'
+min_time = 10
+show_milliseconds = true
 
 [line_break]
 disabled = false
