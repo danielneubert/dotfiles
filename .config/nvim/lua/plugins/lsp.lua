@@ -7,6 +7,12 @@ return {
     { 'j-hui/fidget.nvim', opts = {} },
   },
   config = function()
+    vim.filetype.add {
+      extension = {
+        ino = 'ino',
+      },
+    }
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
       callback = function(event)
@@ -66,15 +72,6 @@ return {
       virtual_text = {
         source = 'if_many',
         spacing = 2,
-        format = function(diagnostic)
-          local diagnostic_message = {
-            [vim.diagnostic.severity.ERROR] = diagnostic.message,
-            [vim.diagnostic.severity.WARN] = diagnostic.message,
-            [vim.diagnostic.severity.INFO] = diagnostic.message,
-            [vim.diagnostic.severity.HINT] = diagnostic.message,
-          }
-          return diagnostic_message[diagnostic.severity]
-        end,
       },
     }
 
@@ -83,6 +80,10 @@ return {
     local servers = {
       bashls = {},
       marksman = {},
+      clangd = {
+        filetypes = { 'c', 'cpp', 'ino' },
+      },
+      gopls = {},
       phpactor = {
         root_dir = function(fname)
           local cwd = vim.fn.getcwd()
@@ -90,12 +91,8 @@ return {
           local file_path = vim.fn.fnamemodify(fname, ':p')
           local file_dir = vim.fn.fnamemodify(fname, ':p:h')
 
-          vim.notify('[PhpactorRootDebug] File: ' .. file_path)
-          vim.notify('[PhpactorRootDebug] CWD: ' .. cwd)
-
           -- If the cwd is just the home directory, fallback to the current file's directory
           if cwd == user_home then
-            vim.notify('[PhpactorRootDebug] Home dir detected, using buffer path: ' .. file_dir)
             return file_dir
           end
 
@@ -105,19 +102,16 @@ return {
           if server_path then
             -- Build the full path up to the server
             local transmit_base = string.match(file_path, '(/Users/.*/Library/Caches/Transmit/.-/' .. server_path .. ')')
-            vim.notify('[PhpactorRootDebug] Transmit folder detected, using server as root: ' .. transmit_base)
             return transmit_base
           end
 
           -- Default: Look for 'controller' directory in the path
           if string.match(file_path, '/controller/') then
             local controller_root = string.match(file_path, '(.-/controller)/')
-            vim.notify('[PhpactorRootDebug] Controller found, using as root: ' .. controller_root)
             return controller_root
           end
 
           -- If nothing else matches, fall back to cwd
-          vim.notify('[PhpactorRootDebug] Using default CWD: ' .. cwd)
           return cwd
         end,
       },

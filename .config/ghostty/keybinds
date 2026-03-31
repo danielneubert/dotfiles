@@ -5,6 +5,10 @@
 keybind = super+?=unbind
 keybind = super+h=unbind
 keybind = super+shift+r=reload_config
+keybind = shift+ctrl+plus=increase_font_size:2
+keybind = super+plus=increase_font_size:2
+keybind = shift+ctrl+-=decrease_font_size:2
+keybind = super+minus=decrease_font_size:2
 
 
 
@@ -25,11 +29,21 @@ keybind = super+t=text:\x01t
 keybind = super+w=text:\x01w
 
 # [^]+[a] > [1] | Select Tab 1
-keybind = super+1=text:\x011
-keybind = super+2=text:\x012
-keybind = super+3=text:\x013
-keybind = super+4=text:\x014
-keybind = super+5=text:\x015
+keybind = shift+ctrl+1=text:\x011
+keybind = shift+ctrl+2=text:\x012
+keybind = shift+ctrl+3=text:\x013
+keybind = shift+ctrl+4=text:\x014
+keybind = shift+ctrl+5=text:\x015
+keybind = cmd+digit_1=unbind
+keybind = cmd+digit_2=unbind
+keybind = cmd+digit_3=unbind
+keybind = cmd+digit_4=unbind
+keybind = cmd+digit_5=unbind
+keybind = cmd+1=text:\x011
+keybind = cmd+2=text:\x012
+keybind = cmd+3=text:\x013
+keybind = cmd+4=text:\x014
+keybind = cmd+5=text:\x015
 
 
 

@@ -1,3 +1,5 @@
+alias ips='ifconfig | grep "inet.*broadcast"';
+
 function search
     # if argv is empry or -h or --help
     if test -z "$argv" -o "$argv" = "-h" -o "$argv" = "--help"
@@ -9,7 +11,7 @@ function search
         return
     end
 
-    // DEBUG: ERR while parse fs3
+    # DEBUG: ERR while parse fs3
     set ignore_dirs ".git" "node_modules" "vendor"
 
     if test "$argv[1]" = "-f"

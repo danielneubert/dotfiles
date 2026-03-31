@@ -11,11 +11,6 @@ return {
         php = { 'php_cs_fixer' },
         ['*'] = { 'trim_newlines', 'trim_whitespace' },
       },
-      format_on_save = {
-        async = false,
-        timeout_ms = 1000,
-        lsp_fallback = true,
-      },
       notify_on_error = true,
       formatters = {
         php = {

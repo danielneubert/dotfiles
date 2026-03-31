@@ -19,6 +19,7 @@ set -U fish_user_paths \
     $HOME/.config/composer/vendor/bin \
     $HOME/.local/bin \
     $HOME/go/bin \
+    $HOME/.bun/bin \
     $fisher_user_paths
 
 builtin source $HOME/.config/fish/env.fish

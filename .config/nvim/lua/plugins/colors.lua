@@ -51,41 +51,31 @@ end
 
 return {
   {
-    'catppuccin/nvim',
+    'vague-theme/vague.nvim',
     priority = 1000,
     config = function()
-      vim.api.nvim_create_user_command('Cat', function()
-        setColors('catppuccin', {}, 'catppuccin-mocha')
+      vim.api.nvim_create_user_command('CVague', function()
+        setColors('vague', {
+          transparent = true,
+        })
       end, {})
-
-      vim.cmd 'Cat'
     end,
   },
   {
     'rose-pine/neovim',
     priority = 1000,
     config = function()
-      vim.api.nvim_create_user_command('Dark', function()
+      vim.api.nvim_create_user_command('CRose', function()
         setColors('rose-pine', {
           variant = 'moon',
           dark_variant = 'moon',
+          styles = {
+            transparency = true,
+          },
         })
       end, {})
-    end,
-  },
-  {
-    'EdenEast/nightfox.nvim',
-    priority = 1000,
-    config = function()
-      vim.api.nvim_create_user_command('Day', function()
-        setColors('nightfox', {
-          options = {
-            styles = {
-              comments = 'italic',
-            },
-          },
-        }, 'dayfox')
-      end, {})
+
+      vim.cmd 'CRose'
     end,
   },
 }

@@ -44,7 +44,6 @@ defaults write com.apple.dock magnification -bool false
 defaults write com.apple.dock autohide-time-modifier -float 0
 killall Dock
 
-
 #
 # Setup
 #
@@ -70,19 +69,24 @@ brew install \
     watch
 
 # Install basic casks
-brew install \
+brew install --cask \
     1password \
+    affinity-designer \
+    affinity-photo \
+    affinity-publisher \
+    amethyst \
     appcleaner \
     beeper \
     cryptomator \
+    docker \
     font-jetbrains-mono \
-    fuse-t \
-    fuse-t-sshfs \
+    font-iosevka \
     ghostty \
-    linearmouse \
+    hiddenbar \
     monitorcontrol \
+    mullvad-browser \
     obsidian \
-    proton-mail \
+    proton-mail-bridge \
     raycast \
     timemachineeditor \
     timemator \
@@ -90,7 +94,6 @@ brew install \
     transmit \
     viscosity \
     yubico-authenticator \
-    yubico-yubikey-manager \
     zed
 
 defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)

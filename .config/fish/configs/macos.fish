@@ -39,7 +39,6 @@ function update
     brew upgrade --cask --greedy-auto-updates
 
     printf "%b" "$COLOR_YELLOW\e0[brew 🍻] Running clean up ...\n$COLOR_RESET"
-    brew unlink node && brew link node
     brew autoremove
     brew cleanup
 

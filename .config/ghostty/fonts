@@ -1,12 +1,20 @@
-# font-family = "Iosevka Term SS14"
+font-family = "Iosevka Term SS14"
+font-size = 21
+font-feature =
+adjust-cell-width = -5%
+adjust-cell-height = 28%
+
+# font-family = "UbuntuMono Nerd Font"
+# font-size = 22
+# font-feature =
+
+# font-family = "JetBrains Mono"
 # font-size = 18
 # font-feature =
+
+# font-family = "ComicCodeLigatures"
+# font-size = 20
+# font-feature =
+
 # adjust-cell-width = 0%
-# adjust-cell-height = 5%
-
-font-family = "UbuntuMono Nerd Font"
-font-size = 22
-font-feature =
-
-adjust-cell-width = 0%
-adjust-cell-height = 25%
+# adjust-cell-height = 10%

@@ -1,2 +1,4 @@
-theme = catppuccin-mocha
+theme = "Rose Pine"
 cursor-color = ff375f
+background-opacity = 0.75
+background-blur = macos-glass-regular

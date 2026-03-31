@@ -2,4 +2,6 @@ config-file = appearance
 config-file = fonts
 config-file = keybinds
 
+confirm-close-surface = false
+
 command = "/opt/homebrew/bin/tmux"

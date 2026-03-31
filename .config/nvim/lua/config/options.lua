@@ -5,7 +5,7 @@ vim.opt.mouse = 'a'
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.signcolumn = 'yes'
-vim.opt.updatetime = 3000
+vim.opt.updatetime = 500
 vim.opt.timeoutlen = 1000
 vim.opt.list = true
 vim.opt.listchars = { tab = '⇥ ', trail = '·', nbsp = '␣' }
@@ -25,6 +25,7 @@ vim.opt.titlestring = "vim %{substitute(getcwd(), $HOME, '~', '')}"
 
 -- Numbers
 vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- Indentation
 vim.opt.tabstop = 4
@@ -50,7 +51,6 @@ vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv 'HOME' .. '/.cache/nvim/undo'
-vim.opt.undofile = true
 vim.opt.backspace = 'indent,eol,start'
 
 -- Window Management
