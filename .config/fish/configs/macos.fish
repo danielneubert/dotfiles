@@ -35,8 +35,8 @@ function update
 
     printf "%b" "$COLOR_YELLOW\e0[brew 🍻] Updating Packages ...\n$COLOR_RESET"
     brew update -q > /dev/null
-    brew upgrade --formula
-    brew upgrade --cask --greedy-auto-updates
+    brew upgrade --formula --no-ask
+    brew upgrade --cask --greedy-auto-updates --no-ask
 
     printf "%b" "$COLOR_YELLOW\e0[brew 🍻] Running clean up ...\n$COLOR_RESET"
     brew autoremove

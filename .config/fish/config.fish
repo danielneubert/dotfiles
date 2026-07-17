@@ -25,11 +25,13 @@ set -U fish_user_paths \
 builtin source $HOME/.config/fish/env.fish
 
 set -gx XDG_CONFIG_HOME "$HOME/.config"
+set -gx HOMEBREW_NO_ASK "1"
 
 # Load all files within the configs directory
 for config_file in (find $HOME/.config/fish/configs -path "*/*.fish" -depth 1 -type f)
     builtin source $config_file 2> /dev/null
 end
+
 
 # Remove the fish greeting
 set fish_greeting

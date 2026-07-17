@@ -25,8 +25,11 @@ keybind = super+o=text:\x01o
 # [^]+[a] > [t] | New Tab
 keybind = super+t=text:\x01t
 
-# [^]+[a] > [w] | Close Tab
-keybind = super+w=text:\x01w
+# Disable Close Tab
+keybind = super+w=unbind
+
+# [^]+[a] > [W] | Close Tab
+keybind = super+shift+w=text:\x01W
 
 # [^]+[a] > [1] | Select Tab 1
 keybind = shift+ctrl+1=text:\x011
